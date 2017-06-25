@@ -12,5 +12,5 @@ Open up `/etc/apt/sources.list` then change line to `deb http://ftp.uk.debian.or
 ## Fish
 Fish as defualt cause it's awesome: `chsh -s (which fish)`
 
-
-
+## Rofi
+Create a .Xrescources file then reload with `xrdb -load ~/.Xresources`

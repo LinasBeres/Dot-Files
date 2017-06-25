@@ -14,3 +14,6 @@ https://wiki.debian.org/ScreenLockingOnSleep
 
 i3 Gaps:
 https://github.com/Airblader/i3
+
+Polybar:
+https://github.com/jaagr/polybar

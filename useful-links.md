@@ -17,3 +17,6 @@ https://github.com/Airblader/i3
 
 Polybar:
 https://github.com/jaagr/polybar
+
+Ncmpcpp cheat sheet:
+https://pkgbuild.com/~jelle/ncmpcpp/

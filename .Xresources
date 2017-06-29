@@ -13,3 +13,42 @@ rofi.color-window: argb:ee222222,  #FAC863 ,  #FAC863
 
 ! Separator style (none, dash, solid)
 rofi.separator-style:                solid
+
+! ------------------------------------------------------------------------------
+! URXVT Color theme and preferences
+! ------------------------------------------------------------------------------
+
+URxvt*cursorBlink:     true
+URxvt*cursorUnderline: true
+URxvt.font:     xft:bitstream vera sans mono:size=10:antialias=true
+URxvt.boldFont: xft:bitstream vera sans mono:bold:size=10:antialias=true
+URxvt*scrollBar:       false
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher:    firefox
+URxvt.matcher.button:  1
+URxvt.internalBorder:  8
+URxvt.lineSpace:       1
+URxvt.letterSpace:     0
+
+*.foreground: #ccb18b
+*.cursorcolor:#ccb18b
+*.colorbd:    #6699cc
+*.colorul:    #ccb18b
+*.colorit:    #ccb18b
+*background:  #2d2d31
+*color0:      #1a1a1a
+*color1:      #cc6666
+*color2:      #66aa66
+*color3:      #f0c674
+*color4:      #557799
+*color5:      #a374a8
+*color6:      #339999
+*color7:      #a3a3a3
+*color8:      #4d4d4d
+*color9:      #dd7777
+*color10:     #77bb77
+*color11:     #f2d785
+*color12:     #5588bb
+*color13:     #b485b9
+*color14:     #2fa7a7
+*color15:     #cccccc

@@ -18,6 +18,7 @@ rofi.separator-style:                solid
 ! URXVT Color theme and preferences
 ! ------------------------------------------------------------------------------
 
+URxvt.termName:        rxvt-256color
 URxvt*cursorBlink:     true
 URxvt*cursorUnderline: true
 URxvt.font:     xft:bitstream vera sans mono:size=10:antialias=true
@@ -30,25 +31,47 @@ URxvt.internalBorder:  8
 URxvt.lineSpace:       1
 URxvt.letterSpace:     0
 
-*.foreground: #ccb18b
-*.cursorcolor:#ccb18b
-*.colorbd:    #6699cc
-*.colorul:    #ccb18b
-*.colorit:    #ccb18b
-*background:  #2d2d31
-*color0:      #1a1a1a
-*color1:      #cc6666
-*color2:      #66aa66
-*color3:      #f0c674
-*color4:      #557799
-*color5:      #a374a8
-*color6:      #339999
-*color7:      #a3a3a3
-*color8:      #4d4d4d
-*color9:      #dd7777
-*color10:     #77bb77
-*color11:     #f2d785
-*color12:     #5588bb
-*color13:     #b485b9
-*color14:     #2fa7a7
-*color15:     #cccccc
+URxvt*font:             -*-proggyoptis-medium-*-*-*-*-*-*-*-*-*-iso8859-1
+URxvt*boldFont:         -*-proggyoptis-medium-*-*-*-*-*-*-*-*-*-iso8859-1
+
+! URXVT FONT SETTINGS
+!------------------------------------------------
+Xft.autohint: true
+Xft.antialias: true
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
+
+! ------------------------------------------------------------------------------
+! Colour Setting
+! ------------------------------------------------------------------------------
+
+*background:       #170F0D
+*foreground:       #746C48
+*cursorColor:      #427b58
+*colorBD:          #C8B984
+
+*color0:           #392925
+*color8:           #544B2E
+
+*color1:           #98724C
+*color9:           #AF652F
+
+*color2:           #908F32
+*color10:          #C3C13D
+
+*color3:           #AA964C
+*color11:          #C8B55B
+
+*color4:           #7B854E
+*color12:          #70A16C
+
+*color5:           #6B5644
+*color13:          #98724C
+
+*color6:           #5C5142
+*color14:          #778725
+
+*color7:           #C8B55B
+*color15:          #E4DC8C

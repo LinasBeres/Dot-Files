@@ -20,3 +20,6 @@ https://github.com/jaagr/polybar
 
 Ncmpcpp cheat sheet:
 https://pkgbuild.com/~jelle/ncmpcpp/
+
+Gruvbox theme:
+https://github.com/morhetz/gruvbox

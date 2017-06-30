@@ -1,1 +1,0 @@
-/home/linas/.local/share/omf/themes/trout/fish_prompt.fish

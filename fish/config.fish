@@ -41,3 +41,7 @@ set SASS_LIBSASS_PATH '/usr/local/lib/libsass'
 set fish_color_param 427b58
 
 alias xup="xrdb -load ~/.Xresources"
+alias ls="ls -lc"
+
+# Git shortcuts
+alias gits="git status -s"

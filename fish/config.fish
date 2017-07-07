@@ -49,6 +49,7 @@ set fish_color_param 427b58
 
 alias xup="xrdb -load ~/.Xresources"
 alias ls="ls -lG"
+alias tree="tree -C"
 
 # Git shortcuts
 alias gits="git status -s"

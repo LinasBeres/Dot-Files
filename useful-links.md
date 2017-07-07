@@ -23,3 +23,6 @@ https://pkgbuild.com/~jelle/ncmpcpp/
 
 Gruvbox theme:
 https://github.com/morhetz/gruvbox
+
+Cava music visualiser:
+https://github.com/karlstav/cava

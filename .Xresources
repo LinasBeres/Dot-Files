@@ -21,8 +21,10 @@ rofi.separator-style:                solid
 URxvt.termName:        rxvt-256color
 URxvt*cursorBlink:     true
 URxvt*cursorUnderline: true
-URxvt.font:     xft:bitstream vera sans mono:size=10:antialias=true
-URxvt.boldFont: xft:bitstream vera sans mono:bold:size=10:antialias=true
+URxvt.font:     xft:bitstream vera sans mono:size=10
+URxvt.boldFont: xft:bitstream vera sans mono:bold:size=10
+URxvt.italicFont: xft:bitstream vera sans mono:italic:size=10
+URxvt*boldItalicFont:  xft:Bitstream vera sans mono:bold:italic:size=10
 URxvt*scrollBar:       false
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher:    firefox
@@ -31,8 +33,12 @@ URxvt.internalBorder:  8
 URxvt.lineSpace:       1
 URxvt.letterSpace:     0
 
-URxvt*font:             -*-proggyoptis-medium-*-*-*-*-*-*-*-*-*-iso8859-1
-URxvt*boldFont:         -*-proggyoptis-medium-*-*-*-*-*-*-*-*-*-iso8859-1
+! Transparency
+! ----------------------------------------------
+!URxvt*transparent:true   ! Background goes black with this :(
+!URxvt*shading: 0
+URxvt.depth: 32
+URxvt.background: rgba:1111/1111/1111/dddd
 
 ! URXVT FONT SETTINGS
 !------------------------------------------------
@@ -53,7 +59,7 @@ Xft.lcdfilter: lcddefault
 !URxvt*borderColor:   #C8B984
 
 ! ------------------------------------------------------------------------------
-! Colour Setting
+! Colour Setting ! ----- ! Current: Gruvbox !
 ! ------------------------------------------------------------------------------
 
 #define base00 #282828

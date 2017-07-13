@@ -5,7 +5,7 @@ function fish_prompt
   set last_status $status
 
   set_color -o normal
-  echo -n (set_color cyan)(prompt_pwd) (set_color red)'❯'(set_color yellow)'❯'(set_color blue)'❯ '
+  echo -n ' '(set_color cyan)(prompt_pwd) (set_color red)'❯'(set_color yellow)'❯'(set_color blue)'❯ '
   set_color normal
 
 end
@@ -48,7 +48,7 @@ set SASS_LIBSASS_PATH '/usr/local/lib/libsass'
 set fish_color_param 427b58
 
 alias xup="xrdb -load ~/.Xresources"
-alias ls="ls -lGh"
+alias ls="ls -lH --color=always"
 alias tree="tree -C"
 
 # Git shortcuts

@@ -36,4 +36,4 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Goyo config
-map <C-p> :Goyo<CR>i<Esc>`^
+map <C-p> :Goyo<CR>

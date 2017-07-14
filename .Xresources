@@ -49,7 +49,7 @@ Xft.lcdfilter: lcddefault
 ! borders
 ! ----------------------------------------------
 !URxvt*externalBorder:     0
-!URxvt*internalBorder:     5
+URxvt*internalBorder:     20
 !URxvt*borderColor:   #282828
 
 ! ------------------------------------------------------------------------------

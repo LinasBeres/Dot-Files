@@ -10,6 +10,7 @@ Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-sensible'
 Plug 'kchmck/vim-coffee-script'
+Plug 'digitaltoad/vim-pug'
 Plug 'junegunn/goyo.vim' " Distraction Free editing
 "Plug 'bilalq/lite-dfm' " Same as above
 
@@ -22,6 +23,11 @@ set numberwidth=3
 
 " Mouse scrolling on
 set mouse=a
+
+" Tab spacing
+set tabstop=2
+set shiftwidth=2
+set expandtab
 
 " Colour scheme - Current: GRUVBOX, https://github.com/morhetz/gruvbox
 "let g:gruvbox_italic=1

@@ -53,3 +53,5 @@ alias tree="tree -C"
 
 # Git shortcuts
 alias gits="git status -s"
+alias gitd="git diff"
+alias gitall="git add -u; git commit -m"

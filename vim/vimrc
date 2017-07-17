@@ -13,6 +13,8 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'digitaltoad/vim-pug'
 Plug 'junegunn/goyo.vim' " Distraction Free editing
 "Plug 'bilalq/lite-dfm' " Same as above
+Plug 'tmhedberg/matchit'
+Plug 'scrooloose/nerdcommenter'
 
 " End plugins
 call plug#end()
@@ -40,6 +42,11 @@ set background=dark
 " Nerd Tree
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Nerd Commenter
+let g:NERDSpaceDelims = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDCommentEmptyLines = 1
 
 " Goyo config
 map <C-p> :Goyo<CR>

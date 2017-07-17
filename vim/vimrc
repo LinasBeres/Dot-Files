@@ -15,6 +15,9 @@ Plug 'junegunn/goyo.vim' " Distraction Free editing
 "Plug 'bilalq/lite-dfm' " Same as above
 Plug 'tmhedberg/matchit'
 Plug 'scrooloose/nerdcommenter'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'ap/vim-css-color'
 
 " End plugins
 call plug#end()

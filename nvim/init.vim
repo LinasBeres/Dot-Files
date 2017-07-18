@@ -1,5 +1,5 @@
 " #--------------------------------------------------# "
-" #-------------- VIM CONFIG FILE -------------------# "
+" #------------- NVIM CONFIG FILE -------------------# "
 " #--------------------------------------------------# "
 
 " Vim-Plug plugin 
@@ -34,17 +34,11 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-" Italics if we are using tmux with italics or st
-if $TERM == "myterm-it" || $TERM == "st-256color"
-  let g:gruvbox_italic=1
-else
-  let g:gruvbox_italic=0
-endif
-
 " Colour scheme - Current: GRUVBOX, https://github.com/morhetz/gruvbox
-"set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let g:gruvbox_italic=1
+set termguicolors
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 colorscheme gruvbox
 set background=dark
 

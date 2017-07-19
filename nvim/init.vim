@@ -2,6 +2,8 @@
 " #------------- NVIM CONFIG FILE -------------------# "
 " #--------------------------------------------------# "
 
+set nocompatible
+
 " Vim-Plug plugin 
 call plug#begin('~/.vim/plugged')
 
@@ -18,6 +20,11 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
 Plug 'jszakmeister/vim-togglecursor'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'plasticboy/vim-markdown'
 
 " End plugins
 call plug#end()
@@ -46,6 +53,8 @@ endif
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let g:gruvbox_contrast_light="soft"
+let g:gruvbox_contrast_dark="soft"
 colorscheme gruvbox
 set background=dark
 

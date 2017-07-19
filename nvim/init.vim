@@ -25,6 +25,8 @@ Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'plasticboy/vim-markdown'
+Plug 'AlessandroYorba/Alduin'
+Plug 'AlessandroYorba/Arcadia'
 
 " End plugins
 call plug#end()
@@ -44,19 +46,19 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-" Italics control
-if $TERM == "myterm-it" || $TERM == "st-256color" || $TERM == "xterm-256color-italic"
-  let g:gruvbox_italic=1
+" Terminal specific
+if $TERM == "myterm-it" || $TERM == "st-256color" || $TERM == "xterm-256color" 
+  set termguicolors
+else
+  let g:gruvbox_termcolors=16
 endif
 
-" Colour scheme - Current: GRUVBOX, https://github.com/morhetz/gruvbox
-set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-let g:gruvbox_contrast_light="soft"
-let g:gruvbox_contrast_dark="soft"
-colorscheme gruvbox
-set background=dark
+" Colour scheme - Current: ALDUIN, https://github.com/AlessandroYorba/Alduin
+let g:alduin_Contract_Vampirism = 1
+colorscheme alduin
+let g:gruvbox_italic=1
+let g:arcadia_Daybreak = 1
+highlight Comment cterm=italic
 
 " Nerd Tree
 map <C-n> :NERDTreeToggle<CR>

@@ -27,6 +27,8 @@ Plug 'tpope/vim-surround'
 Plug 'plasticboy/vim-markdown'
 Plug 'AlessandroYorba/Alduin'
 Plug 'AlessandroYorba/Arcadia'
+Plug 'Plug Xuyuanp/nerdtree-git-plugin'
+PLug 'airblade/vim-gitgutter'
 
 " End plugins
 call plug#end()

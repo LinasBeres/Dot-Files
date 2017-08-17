@@ -69,7 +69,7 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace1 "1: "
+set $workspace1 "1: "
 set $workspace2 "2: "
 set $workspace3 "3: "
 set $workspace4 "4: "
@@ -230,6 +230,7 @@ exec --no-startup-id mpd
 # exec --no-startup-id nm-applet
 exec --no-startup-id firefox
 exec --no-startup-id compton
+exec --no-startup-id fluxgui
 
 # Get rid of the motherfucking beep
 exec_always --no-startip-id xset b off

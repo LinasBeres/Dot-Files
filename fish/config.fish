@@ -36,20 +36,17 @@ function sudo
     end
 end
 
-set -xU LESS_TERMCAP_md (printf "\e[01;31m")
-set -xU LESS_TERMCAP_me (printf "\e[0m")
-set -xU LESS_TERMCAP_se (printf "\e[0m")
-set -xU LESS_TERMCAP_so (printf "\e[01;44;33m")
-set -xU LESS_TERMCAP_ue (printf "\e[0m")
-set -xU LESS_TERMCAP_us (printf "\e[01;32m")
-
 set SASS_LIBSASS_PATH '/usr/local/lib/libsass'
 
 set fish_color_param 427b58
 
 alias xup="xrdb -load ~/.Xresources"
-alias ls="ls -lH --color=always"
+alias ls="ls -lh --color=always"
 alias tree="tree -C"
+alias tmux="env TERM=myterm-it tmux"
+alias n="nvim"
+alias update="su -c 'apt-get update; apt-get upgrade'"
+alias r="ranger"
 
 # Git shortcuts
 alias gits="git status -s"

@@ -6,7 +6,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Inconsolata Display 8
+font pango:Inconsolata Display 8, FontAwesome 8
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -71,14 +71,14 @@ bindsym $mod+a focus parent
 
 set $workspace1 "1: "
 set $workspace2 "2: "
-set $workspace3 "3: "
+set $workspace3 "3: "
 set $workspace4 "4: "
-set $workspace5 "5: "
-set $workspace6 "6: "
-set $workspace7 "7: "
-set $workspace8 "8: "
+set $workspace5 "5: "
+set $workspace6 "6: "
+set $workspace7 "7: "
+set $workspace8 "8: "
 set $workspace9 "9: "
-set $workspace10 "10: ♪"
+set $workspace10 "10: "
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -228,7 +228,7 @@ client.background       $base07
 # Exec
 exec --no-startup-id mpd
 # exec --no-startup-id nm-applet
-exec --no-startup-id firefox
+exec --no-startup-id urxvt
 exec --no-startup-id compton
 exec --no-startup-id fluxgui
 

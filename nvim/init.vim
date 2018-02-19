@@ -12,12 +12,15 @@ Plug 'morhetz/gruvbox'
 Plug 'AlessandroYorba/Alduin'
 Plug 'AlessandroYorba/Arcadia'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'whatyouhide/vim-gotham'
 
 Plug 'junegunn/goyo.vim' " Distraction Free editing
 Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanss/vim-hackernews'
 
+Plug 'sheerun/vim-polyglot'
 Plug 'plasticboy/vim-markdown'
 Plug 'kchmck/vim-coffee-script'
 Plug 'ap/vim-css-color'
@@ -25,6 +28,9 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
+Plug 'lervag/vimtex'
+Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'klen/python-mode'
 
 Plug 'vimwiki/vimwiki'
 Plug 'tbabej/taskwiki'
@@ -34,7 +40,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tmhedberg/matchit'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify' " Alternative to gitgutter
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
@@ -53,9 +60,6 @@ set numberwidth=3
 
 " Mouse scrolling on
 set mouse=a
-
-" Cursor shape and stuff
-let g:togglecursor_leave = "underline"
 
 " Tab spacing
 set tabstop=2
@@ -103,24 +107,23 @@ au FocusLost * :wa
 " Terminal specific
 if $TERM == "myterm-it" || $TERM == "st-256color" || $TERM == "xterm-256color"
   set termguicolors
-else
-  let g:gruvbox_termcolors=16
 endif
 
 
 "        PLUGIN CONFIG
 " ===========================
-
+"
 " Colour scheme
 let g:alduin_Contract_Vampirism = 1
-colorscheme alduin
 let g:gruvbox_italic=1
 let g:arcadia_Daybreak = 1
+colorscheme alduin
 highlight Comment cterm=italic
 highlight Folded ctermfg=109 ctermbg=233 guifg=#87afaf guibg=#121212
 
 " Airline Stuff
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = "lucius"
 
 " Nerd Tree
 map <Leader>n :NERDTreeToggle<CR>
@@ -133,3 +136,9 @@ let g:NERDCommentEmptyLines = 1
 
 " Goyo config
 map <C-p> :Goyo<CR>
+
+" Some sort of latex bug
+let g:polyglot_disabled = ['latex']
+
+" Gitgutter error
+let g:gitgutter_realtime = 0

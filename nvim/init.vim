@@ -4,7 +4,7 @@
 
 set nocompatible
 
-" Vim-Plug plugin
+" Vim-Plug {{{
 call plug#begin('~/.vim/plugged')
 
 " Plugins...
@@ -17,6 +17,7 @@ Plug 'junegunn/goyo.vim' " Distraction Free editing
 Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 Plug 'plasticboy/vim-markdown'
 Plug 'kchmck/vim-coffee-script'
@@ -25,6 +26,10 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+" Plug 'hdima/python-syntax'
+" Plug 'python-mode/python-mode', { 'branch': 'develop' }
 
 Plug 'vimwiki/vimwiki'
 Plug 'tbabej/taskwiki'
@@ -46,6 +51,10 @@ Plug 'bronson/vim-trailing-whitespace'
 
 " End plugins
 call plug#end()
+
+" }}}
+
+" GENERAL {{{
 
 " Line numbers
 set number
@@ -90,8 +99,8 @@ set incsearch
 set showmatch
 set hlsearch
 nnoremap <leader><space> :noh<cr>
-nnoremap <tab> %
-vnoremap <tab> %
+nnoremap <Tab> %
+vnoremap <Tab> %
 
 " Extra symbols
 set list
@@ -107,8 +116,51 @@ else
   let g:gruvbox_termcolors=16
 endif
 
+" }}}
 
-"        PLUGIN CONFIG
+"        KEYBINDINGS {{{
+" ==========================
+
+" leader in coma
+let mapleader = ";"
+" but keep the old one too
+nmap \ ;
+
+" move around the splits with ;j etc.
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>h <C-w>h
+nnoremap <leader>l <C-w>l
+
+" move around the splits with Ctrl+Alt+j etc.
+nnoremap <C-A-j> <C-w>j
+nnoremap <C-A-k> <C-w>k
+nnoremap <C-A-h> <C-w>h
+nnoremap <C-A-l> <C-w>l
+" Note: you may want to change the lock screen combination to Mod4-L...
+
+
+" move splits up and down
+nnoremap <leader>J <C-w>x<C-w>j
+nnoremap <leader>K <C-w>k<C-w>x
+
+" open new splits and move there
+nnoremap <leader>v <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s<C-w>l
+
+" no ex mode (type visual to go back to sanity)
+nnoremap Q <Nop>
+
+imap <A-e> <Esc>
+vmap <A-e> <Esc>
+smap <A-e> <Esc>
+
+
+"}}}
+
+set foldmethod=marker  " explicit markers {{{ and }}}
+
+"        PLUGIN CONFIG {{{
 " ===========================
 
 " Colour scheme
@@ -117,7 +169,7 @@ colorscheme alduin
 let g:gruvbox_italic=1
 let g:arcadia_Daybreak = 1
 highlight Comment cterm=italic
-highlight Folded ctermfg=109 ctermbg=233 guifg=#87afaf guibg=#121212
+" highlight Folded ctermfg=8 ctermbg=233 guifg=#5f0000 guibg=#121212
 
 " Airline Stuff
 let g:airline#extensions#tabline#enabled = 1
@@ -133,3 +185,10 @@ let g:NERDCommentEmptyLines = 1
 
 " Goyo config
 map <C-p> :Goyo<CR>
+
+let g:jsx_ext_required = 0
+
+" Python3 syntax
+let g:pymode_python = 'python3'
+
+"}}}

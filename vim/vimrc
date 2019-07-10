@@ -18,18 +18,20 @@ Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
 
 Plug 'plasticboy/vim-markdown'
 Plug 'kchmck/vim-coffee-script'
-Plug 'ap/vim-css-color'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'cakebaker/scss-syntax.vim'
+" Plug 'ap/vim-css-color'
+" Plug 'hail2u/vim-css3-syntax'
+" Plug 'cakebaker/scss-syntax.vim'
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 " Plug 'hdima/python-syntax'
 " Plug 'python-mode/python-mode', { 'branch': 'develop' }
+Plug 'dag/vim-fish'
 
 Plug 'vimwiki/vimwiki'
 Plug 'tbabej/taskwiki'
@@ -48,6 +50,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ervandew/supertab'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'kien/ctrlp.vim'
 
 " End plugins
 call plug#end()
@@ -73,7 +76,7 @@ set softtabstop=2
 set expandtab
 
 " General improvments
-set encoding=utf-8
+set encoding=UTF-8
 set scrolloff=3
 set autoindent
 set showmode

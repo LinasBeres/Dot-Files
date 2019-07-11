@@ -20,6 +20,7 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 
+Plug 'sheerun/vim-polyglot'
 Plug 'plasticboy/vim-markdown'
 Plug 'kchmck/vim-coffee-script'
 " Plug 'ap/vim-css-color'

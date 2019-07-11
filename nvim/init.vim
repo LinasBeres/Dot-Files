@@ -4,7 +4,7 @@
 
 set nocompatible
 
-" Vim-Plug plugin
+" Vim-Plug {{{
 call plug#begin('~/.vim/plugged')
 
 " Plugins...
@@ -12,25 +12,26 @@ Plug 'morhetz/gruvbox'
 Plug 'AlessandroYorba/Alduin'
 Plug 'AlessandroYorba/Arcadia'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'whatyouhide/vim-gotham'
 
 Plug 'junegunn/goyo.vim' " Distraction Free editing
 Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
+Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanss/vim-hackernews'
+Plug 'ryanoasis/vim-devicons'
 
-Plug 'sheerun/vim-polyglot'
 Plug 'plasticboy/vim-markdown'
 Plug 'kchmck/vim-coffee-script'
-Plug 'ap/vim-css-color'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'cakebaker/scss-syntax.vim'
+" Plug 'ap/vim-css-color'
+" Plug 'hail2u/vim-css3-syntax'
+" Plug 'cakebaker/scss-syntax.vim'
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
-Plug 'lervag/vimtex'
-Plug 'octol/vim-cpp-enhanced-highlight'
-" Plug 'klen/python-mode'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+" Plug 'hdima/python-syntax'
+" Plug 'python-mode/python-mode', { 'branch': 'develop' }
+Plug 'dag/vim-fish'
 
 Plug 'vimwiki/vimwiki'
 Plug 'tbabej/taskwiki'
@@ -40,8 +41,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tmhedberg/matchit'
-" Plug 'airblade/vim-gitgutter'
-Plug 'mhinz/vim-signify' " Alternative to gitgutter
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
@@ -50,9 +50,14 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ervandew/supertab'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'kien/ctrlp.vim'
 
 " End plugins
 call plug#end()
+
+" }}}
+
+" GENERAL {{{
 
 " Line numbers
 set number
@@ -61,6 +66,9 @@ set numberwidth=3
 " Mouse scrolling on
 set mouse=a
 
+" Cursor shape and stuff
+let g:togglecursor_leave = "underline"
+
 " Tab spacing
 set tabstop=2
 set shiftwidth=2
@@ -68,7 +76,7 @@ set softtabstop=2
 set expandtab
 
 " General improvments
-set encoding=utf-8
+set encoding=UTF-8
 set scrolloff=3
 set autoindent
 set showmode
@@ -94,8 +102,8 @@ set incsearch
 set showmatch
 set hlsearch
 nnoremap <leader><space> :noh<cr>
-nnoremap <tab> %
-vnoremap <tab> %
+nnoremap <Tab> %
+vnoremap <Tab> %
 
 " Extra symbols
 set list
@@ -105,25 +113,69 @@ set listchars=tab:▸\ ,eol:¬
 au FocusLost * :wa
 
 " Terminal specific
-if $TERM == "myterm-it" || $TERM == "st-256color" || $TERM == "xterm-256color"
-  set termguicolors
-endif
+" if $TERM == "myterm-it" || $TERM == "st-256color" || $TERM == "xterm-256color"
+  " set termguicolors
+" else
+  " let g:gruvbox_termcolors=16
+" endif
+
+" }}}
+
+"        KEYBINDINGS {{{
+" ==========================
+
+" leader in coma
+let mapleader = ";"
+" but keep the old one too
+nmap \ ;
+
+" move around the splits with ;j etc.
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>h <C-w>h
+nnoremap <leader>l <C-w>l
+
+" move around the splits with Ctrl+Alt+j etc.
+nnoremap <C-A-j> <C-w>j
+nnoremap <C-A-k> <C-w>k
+nnoremap <C-A-h> <C-w>h
+nnoremap <C-A-l> <C-w>l
+" Note: you may want to change the lock screen combination to Mod4-L...
 
 
-"        PLUGIN CONFIG
+" move splits up and down
+nnoremap <leader>J <C-w>x<C-w>j
+nnoremap <leader>K <C-w>k<C-w>x
+
+" open new splits and move there
+nnoremap <leader>v <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s<C-w>l
+
+" no ex mode (type visual to go back to sanity)
+nnoremap Q <Nop>
+
+imap <A-e> <Esc>
+vmap <A-e> <Esc>
+smap <A-e> <Esc>
+
+
+"}}}
+
+set foldmethod=marker  " explicit markers {{{ and }}}
+
+"        PLUGIN CONFIG {{{
 " ===========================
-"
+
 " Colour scheme
 let g:alduin_Contract_Vampirism = 1
+colorscheme alduin
 let g:gruvbox_italic=1
 let g:arcadia_Daybreak = 1
-colorscheme alduin
-highlight Comment cterm=italic
-highlight Folded ctermfg=109 ctermbg=233 guifg=#87afaf guibg=#121212
+" highlight Comment cterm=italic
+highlight Folded ctermfg=8 ctermbg=233 guifg=#5f0000 guibg=#121212
 
 " Airline Stuff
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = "lucius"
 
 " Nerd Tree
 map <Leader>n :NERDTreeToggle<CR>
@@ -137,8 +189,9 @@ let g:NERDCommentEmptyLines = 1
 " Goyo config
 map <C-p> :Goyo<CR>
 
-" Some sort of latex bug
-let g:polyglot_disabled = ['latex']
+let g:jsx_ext_required = 0
 
-" Gitgutter error
-let g:gitgutter_realtime = 0
+" Python3 syntax
+let g:pymode_python = 'python3'
+
+"}}}

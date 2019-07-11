@@ -14,6 +14,7 @@ rofi.color-window: argb:ee222222,  #FAC863 ,  #FAC863
 ! Separator style (none, dash, solid)
 rofi.separator-style:                solid
 
+
 ! ------------------------------------------------------------------------------
 ! URXVT Color theme and preferences
 ! ------------------------------------------------------------------------------
@@ -53,7 +54,7 @@ Xft.lcdfilter: lcddefault
 !URxvt*borderColor:   #282828
 
 ! ------------------------------------------------------------------------------
-! Colour Setting ! ----- ! Current: Gruvbox !
+! Colour Setting ! ----- ! Current: Alduin !
 ! ------------------------------------------------------------------------------
 
 #define base00 #282828
@@ -110,3 +111,4 @@ Xft.lcdfilter: lcddefault
 *.color19:      base02
 *.color20:      base04
 *.color21:      base06
+

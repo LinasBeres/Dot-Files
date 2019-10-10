@@ -1,0 +1,45 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export LESS_TERMCAP_md:\x1b\x5b01\x3b31m
+SETUVAR --export LESS_TERMCAP_me:\x1b\x5b0m
+SETUVAR --export LESS_TERMCAP_se:\x1b\x5b0m
+SETUVAR --export LESS_TERMCAP_so:\x1b\x5b01\x3b44\x3b33m
+SETUVAR --export LESS_TERMCAP_ue:\x1b\x5b0m
+SETUVAR --export LESS_TERMCAP_us:\x1b\x5b01\x3b32m
+SETUVAR ZO_CMD:zo
+SETUVAR Z_CMD:z
+SETUVAR Z_DATA:/u/libe/\x2elocal/share/z/data
+SETUVAR Z_DATA_DIR:/u/libe/\x2elocal/share/z
+SETUVAR Z_EXCLUDE:/u/libe
+SETUVAR __fish_init_1_50_0:\x1d
+SETUVAR __fish_init_2_39_8:\x1d
+SETUVAR __fish_init_2_3_0:\x1d
+SETUVAR __fish_init_3_x:\x1d
+SETUVAR fish_color_autosuggestion:blue
+SETUVAR fish_color_cancel:\x2dr
+SETUVAR fish_color_command:\x2d\x2dbold\x1edfdfaf
+SETUVAR fish_color_comment:red
+SETUVAR fish_color_cwd:green
+SETUVAR fish_color_cwd_root:red
+SETUVAR fish_color_end:blue
+SETUVAR fish_color_error:red
+SETUVAR fish_color_escape:cyan
+SETUVAR fish_color_history_current:cyan
+SETUVAR fish_color_host:normal
+SETUVAR fish_color_match:blue
+SETUVAR fish_color_normal:normal
+SETUVAR fish_color_operator:cyan
+SETUVAR fish_color_param:427b58
+SETUVAR fish_color_quote:\x2d\x2dbold\x1ebrown
+SETUVAR fish_color_redirection:normal
+SETUVAR fish_color_search_match:\x2d\x2dbackground\x3dblue
+SETUVAR fish_color_selection:\x2d\x2dbackground\x3dpurple
+SETUVAR fish_color_user:green
+SETUVAR fish_color_valid_path:\x2d\x2dunderline
+SETUVAR fish_greeting:Welcome\x20to\x20fish\x2c\x20the\x20friendly\x20interactive\x20shell\x0aType\x20\x1b\x5b32mhelp\x1b\x5b30m\x1b\x28B\x1b\x5bm\x20for\x20instructions\x20on\x20how\x20to\x20use\x20fish
+SETUVAR fish_key_bindings:fish_default_key_bindings
+SETUVAR fish_pager_color_completion:\x2db\x3dnormal
+SETUVAR fish_pager_color_description:555\x1eyellow
+SETUVAR fish_pager_color_prefix:yellow
+SETUVAR fish_pager_color_progress:cyan
+SETUVAR pisces_pairs:\x28\x2c\x29\x1e\x5b\x2c\x5d\x1e\x7b\x2c\x7d\x1e\x22\x2c\x22\x1e\x27\x2c\x27

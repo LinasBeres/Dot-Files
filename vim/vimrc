@@ -33,9 +33,10 @@ Plug 'mxw/vim-jsx'
 " Plug 'hdima/python-syntax'
 " Plug 'python-mode/python-mode', { 'branch': 'develop' }
 Plug 'dag/vim-fish'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'vimwiki/vimwiki'
-Plug 'tbabej/taskwiki'
+" Plug 'tbabej/taskwiki'
 Plug 'mattn/calendar-vim'
 
 Plug 'scrooloose/nerdcommenter'
@@ -52,6 +53,10 @@ Plug 'ervandew/supertab'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'kien/ctrlp.vim'
+Plug 'vim-scripts/a.vim'
+Plug 'mileszs/ack.vim'
+
+Plug '~/.fzf'
 
 " End plugins
 call plug#end()
@@ -59,6 +64,10 @@ call plug#end()
 " }}}
 
 " GENERAL {{{
+
+" Syntax
+syntax on
+filetype plugin on
 
 " Line numbers
 set number
@@ -107,8 +116,8 @@ set incsearch
 set showmatch
 set hlsearch
 nnoremap <leader><space> :noh<cr>
-nnoremap <Tab> %
-vnoremap <Tab> %
+" nnoremap <Tab> %
+" vnoremap <Tab> %
 
 " Extra symbols
 set list
@@ -127,9 +136,7 @@ au FocusLost * :wa
 " }}}
 
 "        KEYBINDINGS {{{
-" ==========================
-
-" leader in coma
+" ========================== leader in coma
 let mapleader = ";"
 " but keep the old one too
 nmap \ ;
@@ -159,10 +166,38 @@ nnoremap <leader>s <C-w>s<C-w>l
 " no ex mode (type visual to go back to sanity)
 nnoremap Q <Nop>
 
+" Auto opening
+inoremap (; (<CR>);<C-c>O
+inoremap (, (<CR>),<C-c>O
+inoremap {; {<CR>};<C-c>O
+inoremap {, {<CR>},<C-c>O
+inoremap [; [<CR>];<C-c>O
+inoremap [, [<CR>],<C-c>O
+
+" Avoid the escape key
+inoremap jj <Esc>
 imap <A-e> <Esc>
 vmap <A-e> <Esc>
 smap <A-e> <Esc>
 
+" EZ Save
+nnoremap <A-s> :w<CR>
+
+" Comment quick
+nnoremap <A-c> :call NERDComment(0, "toggle")<CR>
+vnoremap <A-c> :call NERDComment(0, "toggle")<CR>
+
+" Header jump
+nnoremap <A-a> :A<CR>
+
+" Tab jump
+nnoremap <Tab> :bnext<CR>
+
+" Open NERD
+nnoremap <A-n> :NERDTreeToggle<CR>
+
+" Search
+nnoremap <A-f> :Ack! 
 
 "}}}
 
@@ -198,5 +233,9 @@ let g:jsx_ext_required = 0
 
 " Python3 syntax
 let g:pymode_python = 'python3'
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 "}}}

@@ -23,14 +23,14 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'plasticboy/vim-markdown'
 Plug 'kchmck/vim-coffee-script'
-" Plug 'ap/vim-css-color'
-" Plug 'hail2u/vim-css3-syntax'
-" Plug 'cakebaker/scss-syntax.vim'
+Plug 'ap/vim-css-color'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'cakebaker/scss-syntax.vim'
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-" Plug 'hdima/python-syntax'
+Plug 'hdima/python-syntax'
 " Plug 'python-mode/python-mode', { 'branch': 'develop' }
 Plug 'dag/vim-fish'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -55,6 +55,12 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/a.vim'
 Plug 'mileszs/ack.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'wincent/terminus'
+" Plug 'yggdroot/indentline'
+if has('nvim')
+	Plug 'voldikss/vim-floaterm'
+endif
 
 Plug '~/.fzf'
 
@@ -126,11 +132,21 @@ set listchars=tab:▸\ ,eol:¬
 " Save on exit
 au FocusLost * :wa
 
+" Set up vertical vs block cursor for insert/normal mode
+if $TERM == 'screen-256color'
+	echo "TERM IS TMUX"
+else
+	let &t_ti.="\<Esc>[1 q"
+	let &t_SI.="\<Esc>[5 q"
+	let &t_EI.="\<Esc>[1 q"
+	let &t_te.="\<Esc>[0 q"
+endif
+
 " Terminal specific
 " if $TERM == "myterm-it" || $TERM == "st-256color" || $TERM == "xterm-256color"
-  " set termguicolors
+" set termguicolors
 " else
-  " let g:gruvbox_termcolors=16
+" let g:gruvbox_termcolors=16
 " endif
 
 " }}}
@@ -192,6 +208,7 @@ nnoremap <A-a> :A<CR>
 
 " Tab jump
 nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 " Open NERD
 nnoremap <A-n> :NERDTreeToggle<CR>
@@ -227,7 +244,7 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDCommentEmptyLines = 1
 
 " Goyo config
-map <C-p> :Goyo<CR>
+map <C-g> :Goyo<CR>
 
 let g:jsx_ext_required = 0
 
@@ -236,6 +253,40 @@ let g:pymode_python = 'python3'
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
+endif
+
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+" Floating windows...
+if has('nvim') && $TERM == 'screen-256color'
+	let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+	let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
+	let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+	function! FloatingFZF()
+		let buf = nvim_create_buf(v:false, v:true)
+		call setbufvar(buf, '&signcolumn', 'no')
+
+		" Configuration
+		let height = float2nr((&lines - 2) * 0.6)
+		let row = float2nr((&lines - height) / 2)
+		let width = float2nr(&columns * 0.6)
+		let col = float2nr((&columns - width) / 2)
+
+		let opts = {
+					\ 'relative': 'editor',
+					\ 'row': row,
+					\ 'col': col,
+					\ 'width': width,
+					\ 'height': height,
+					\ 'style': 'minimal'
+					\ }
+
+		call nvim_open_win(buf, v:true, opts)
+	endfunction
+
+	nnoremap <silent> <C-o> :call fzf#vim#files('.', {'options': '--prompt ""'})<CR>
+	nnoremap <silent> <leader>b :Buffers<CR>
 endif
 
 "}}}

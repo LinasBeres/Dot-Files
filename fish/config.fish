@@ -29,27 +29,10 @@ set fish_pager_color_secondary --background=normal
 function fish_prompt
   set last_status $status
 
-	if [ $HOST != "hitchin" ]
-		if [ $USER != "libe" ]
-			echo -n (set_color --bold grey)'|'(set_color blue)$USER(set_color normal)'@'(set_color --bold yellow)$HOST(set_color --bold grey)'|'
-		else
-			echo -n (set_color --bold grey)'|'(set_color --bold yellow)$HOST(set_color --bold grey)'|'
-		end
-
-	end
-
-	if count $BOB_WORLD > /dev/null
-		echo -n (set_color magenta)"["$BOB_WORLD"]"
-	end
+	echo -n (set_color --bold grey)'|'(set_color --bold yellow)$HOST(set_color --bold grey)'|'
 
 	echo -n ' '(set_color cyan)(prompt_pwd) ''
   set_color -o normal
-
-	if [ $SHOT != "ldev_pipe" ]
-		echo -n (set_color --bold grey)'['$SHOW':'$SHOT'] '
-	else
-		echo -n (set_color --bold grey)'['$SHOW'] '
-	end
 
 	echo -n (set_color red)'❯'(set_color yellow)'❯'(set_color blue)'❯ '
 
@@ -59,9 +42,9 @@ end
 function fish_right_prompt
   set -l last_status $status
 
-  echo -n (set_color blue)'❮'(set_color yellow)'❮'(set_color red)'❮ '
+  echo -n (set_color blue)'❮'(set_color yellow)'❮'(set_color red)'❮'
   set_color -o normal
-  __informative_git_prompt
+  echo (fish_git_prompt)
 end
 
 function fish_title

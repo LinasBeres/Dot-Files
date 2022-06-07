@@ -36,13 +36,13 @@ mouse_warping none
 # font pango:DejaVu Sans Mono 10
 # font pango: Monospace9
 # font pango: System San Francisco Display 9
-font pango: BigBlue_TerminalPlus 9
+font pango: JetBrains Mono Medium 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec /u/libe/bin/xst
+bindsym $mod+Return exec $HOME/bin/kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -52,9 +52,9 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop [--dmenu="dmenu -i"] [--term="urxvtc"]
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop [--dmenu="dmenu -i"] [--term="urxvtc"]
 #bindsym $mod+d exec --no-startup-id /usr/bin/j4-dmenu-desktop [--dmenu="dmenu -i"] [--term="i3-sensible-terminal"]
-#bindsym $mod+d exec rofi -show run -lines 5 -eh 2 -width 100 -padding 300 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 9"
+bindsym $mod+d exec rofi -show run -lines 7 -eh 1
 
 # change focus
 bindsym $mod+h focus left
@@ -112,24 +112,18 @@ bindsym $mod+a focus parent
 focus_on_window_activation urgent
 # or smart
 
+# xrandr is what prints these
 set $workspace1 "1 "
 set $workspace2 "2 "
 set $workspace3 "3 "
 set $workspace4 "4 "
 set $workspace5 "5 "
-set $workspace6 "6 "
+set $workspace6 "6  "
 set $workspace7 "7 "
 set $workspace8 "8 "
-set $workspace9 "9 "
-set $workspace10 "10 "
-
-# xrandr is what prints these
-#$workspace5 output DVI-I-1
-#$workspace6 output DP-0
-#$workspace7 output DVI-I-1
-#$workspace8 output DP-0
-#$workspace9 output DVI-I-1
-#$workspace10 output DP-0
+set $workspace9 "9  "
+set $workspace10 "10  "
+set $workspace11 "11  "
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1
@@ -142,35 +136,33 @@ bindsym $mod+Shift+7 move container to workspace $workspace7
 bindsym $mod+Shift+8 move container to workspace $workspace8
 bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace10
+bindsym $mod+Shift+p move container to workspace $workspace11
 
 # switch to workspace
-#bindsym $mod+1 workspace $workspace1
-#bindsym $mod+2 workspace $workspace2
-#bindsym $mod+3 workspace $workspace3
-#bindsym $mod+4 workspace $workspace4
-#bindsym $mod+5 workspace $workspace5
-#bindsym $mod+6 workspace $workspace6
-#bindsym $mod+7 workspace $workspace7
-#bindsym $mod+8 workspace $workspace8
-#bindsym $mod+9 workspace $workspace9
-#bindsym $mod+0 workspace $workspace10
-bindsym $mod+1 workspace $workspace1; workspace $workspace2
-bindsym $mod+2 workspace $workspace3; workspace $workspace4
-bindsym $mod+3 workspace $workspace5; workspace $workspace6
-bindsym $mod+4 workspace $workspace7; workspace $workspace8
-bindsym $mod+5 workspace $workspace9; workspace $workspace10
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+bindsym $mod+p workspace $workspace11
 
 # xrandr --current
-workspace "1 " output DVI-I-1
-workspace "2 " output DP-0
-workspace "3 " output DVI-I-1
-workspace "4 " output DP-0
-workspace "5 " output DVI-I-1
-workspace "6 " output DP-0
-workspace "7 " output DVI-I-1
-workspace "8 " output DP-0
-workspace "9 " output DVI-I-1
-workspace "10 " output DP-0
+workspace "1 " output DP-4
+workspace "2 " output DP-2
+workspace "3 " output DP-4
+workspace "4 " output DP-2
+workspace "5 " output DP-4
+workspace "6  " output DP-2
+workspace "7 " output DP-4
+workspace "8 " output DP-2
+workspace "9  " output DP-4
+workspace "10  " output DP-2
+workspace "11  " output DP-0.8
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -251,16 +243,6 @@ bar {
           binding_mode        $base00 $base0A $base00
         }
 }
-# bar {
-        # # status_command $HOME/.i3/conky-i3bar
-        # status_command i3status
-        # # status_command i3status -c ~/.i3/i3status.conf
-	# #status_command py3status -c /home/sarek/.i3/i3status.conf
-	# #status_command $HOME/.i3/conky-i3bar
-	# # font xft:Cousine, FontAwesome 12
-	# font pango:DejaVu Sans Mono 11
-	# tray_output DP-3
-# }
 
 #exec --no-startup-id nitrogen --restore
 exec --no-startup-id xset r rate 250 60
@@ -271,87 +253,66 @@ exec --no-startup-id hector
 bindsym $mod+Shift+x exec $HOME/bin/scripts/lock.sh
 bindsym $mod+z exec zim
 
-
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-for_window [class="MPlayer"] floating enable
-for_window [class="smplayer"] floating enable
-for_window [class="Smplayer"] floating enable
 for_window [class="xv"] floating enable
 for_window [class="Xfce4-notifyd"] floating enable; border none; focus mode_toggle
 for_window [class="Skype"] floating enable
 for_window [class="Nuke"] floating enable
-for_window [class="Nxplayer.bin"] layout tabbed
 for_window [class="Google-chrome"] layout tabbed
-for_window [class="Jigsaw"] layout tabbed
-for_window [class="jigsaw"] layout tabbed
 for_window [class="Qasmixer"] floating enable
 for_window [title="Ivy Browser *"] layout tabbed
-for_window [title="Jigsaw Workspace Search v2"] floating enable
-for_window [title="Assign Lens to Image or Image Group"] floating enable
-for_window [title="Assign New White Balance to Selected Images and Groups"] floating enable
-for_window [title="Set cover image for group"] floating enable
-for_window [title="Set auto grade region on child image for group"] floating enable
-for_window [title="Enter gigapan settings"] floating enable
-for_window [title="Rodeon Auto Arrange"] floating enable
-for_window [title="HWD ONSET data processing"] floating enable
-for_window [title="Jigsaw Scene Publish"] floating enable
-for_window [title="Roundshot Auto Arrange"] floating enable
-for_window [title="Query Shotgun's Material Tracker"] floating enable
-for_window [title="Find a string/path in all master projects"] floating enable
-for_window [title="Double Vision"] floating enable
-for_window [title=".*IO Folder processing"] floating enable
-for_window [class="Totalview"] floating enable
-for_window [class="rv.bin"] floating enable
 for_window [title="Git.*"] floating enable
 for_window [title=".*gitk"] floating enable
-for_window [class="Flip446"] floating enable
-for_window [class="Slip"] floating enable
-for_window [class="Konqueror"] floating enable
-for_window [class="MriBin"] layout tabbed
 for_window [class="Maya.bin"] layout tabbed
 for_window [class="maya.bin"] layout tabbed
-for_window [class="FLTK"] layout tabbed
-for_window [class="3DE4"] layout tabbed
-for_window [class="Maya-2017"] layout tabbed
-for_window [class="Maya-2018"] layout tabbed
 for_window [title=".*Houdini"] layout tabbed
+for_window [class="blueberry.py"] floating enabled
+for_window [class="Blueberry.py"] floating enabled
+for_window [class="pavucontrol"] floating enabled
+for_window [class="Pavucontrol"] floating enabled
+for_window [class="slack"] layout tabbed
+for_window [class="Slack"] layout tabbed
+for_window [class="signal"] layout tabbed
+for_window [class="Signal"] layout tabbed
+
+
 # default workspaces
-assign [class="Spotify"] $workspace10
 assign [class="Pidgin"] $workspace9
 assign [class="Thunderbird"] $workspace1
-assign [class="Firefox"] $workspace2
+assign [class="Firefox"] $workspace10
 assign [class="Google-chrome"] $workspace10
 assign [class="Nuke"] $workspace5
 assign [class="Maya.bin"] $workspace8
 assign [class="maya.bin"] $workspace8
 assign [class="3DE4"] $workspace6
-assign [class="Maya-2017"] $workspace8
-assign [class="Maya-2018"] $workspace8
 assign [title=".*Houdini"] $workspace8
 assign [class="MriBin"] $workspace8
 assign [class="FLTK"] $workspace8
 assign [class="Nxplayer.bin"] $workspace10
-assign [class="Jigsaw"] $workspace4
-assign [class="jigsaw"] $workspace4
-assign [title="Stig Zoom Viewer"] $workspace3
-assign [class="Stig"] $workspace4
 
-exec --no-startup-id compton -f
-exec --no-startup-id /u/sicp/bin/Linux64/feh --bg-fill /u/libe/Pictures/hoodwinked.jpg /u/libe/Pictures/hoodwinked.jpg
+assign [class="slack"] $workspace9
+assign [class="Slack"] $workspace9
+assign [class="signal"] $workspace9
+assign [class="Signal"] $workspace9
+
+assign [class="spotify"] $workspace6
+assign [class="Spotify"] $workspace6
+assign [title="Spotify"] $workspace6
+
+# exec --no-startup-id compton -f
+exec --no-startup-id feh --bg-fill $HOME/Pictures/hoodwinked.jpg $HOME/Pictures/hoodwinked.jpg
 #exec --no-startup-id qasmixer --tray
+exec --no-startup-id blueberry-tray
 exec --no-startup-id firefox
-exec --no-startup-id pidgin
-#exec --no-startup-id bash -c "JUNEST_HOME=/user_data/ARCHIVE/junest/junest HOME=/user_data/ARCHIVE/junest/junest/home/sicp /user_data/ARCHIVE/junest/repo/bin/junest -- firefox"
-#exec --no-startup-id bash -c "JUNEST_HOME=/user_data/ARCHIVE/junest/junest HOME=/user_data/ARCHIVE/junest/junest/home/sicp /user_data/ARCHIVE/junest/repo/bin/junest -- pidgin"
-#exec --no-startup-id /user_data/ARCHIVE/autocutsel-0.10.0/autocutsel
-#exec --no-startup-id thunderbird
-#exec --no-startup-id thunderbird
-exec --no-startup-id internet
-#exec --no-startup-id hector
+exec --no-startup-id slack
+exec --no-startup-id signal-desktop
+exec --no-startup-id flameshot
+exec --no-startup-id thunderbird
+exec --no-startup-id spotify
 
 #exec --no-startup-id /user_data/ARCHIVE/autocutsel-0.10.0/autocutsel -selection CLIPBOARD -fork
 #exec --no-startup-id /user_data/ARCHIVE/autocutsel-0.10.0/autocutsel -selection PRIMARY -fork

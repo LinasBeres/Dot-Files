@@ -12,3 +12,4 @@
 - neofetch - get a system at a galance
 - flameshot - screenshot manager but so much better
 - rg - the BEST text searcher
+- ImageMagick - free command line image tools

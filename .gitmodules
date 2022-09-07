@@ -31,3 +31,9 @@
 [submodule "external/flameshot"]
 	path = external/flameshot
 	url = git@github.com:flameshot-org/flameshot.git
+[submodule "external/fzf"]
+	path = external/fzf
+	url = git@github.com:junegunn/fzf.git
+[submodule "external/rez"]
+	path = external/rez
+	url = git@github.com:AcademySoftwareFoundation/rez.git

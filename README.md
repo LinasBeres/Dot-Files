@@ -9,7 +9,7 @@ This repo consists of files, links and packages that I need storing on github fo
 
 ### Personal
 
-- *OS:* TBD
+- *OS:* [Fedora](https://getfedora.org/)
 - *Laptop:* TBD
 - *CPU:* TBD
 
@@ -21,3 +21,13 @@ This repo consists of files, links and packages that I need storing on github fo
 - *Editor:* [neovim](https://github.com/neovim/neovim)
 - *Font:* [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono)
 - *Launcher:* [Rofi](https://github.com/davatorium/rofi)
+
+### Dev Environment
+
+- fish (listed above)
+- nvim (listed above)
+- [clangd](https://clangd.llvm.org/) - c++ language server
+- [fzf](https://github.com/junegunn/fzf) - file searcher (the best)
+- [rg](https://github.com/BurntSushi/ripgrep) - The very fastest line searcher
+- [ag](https://github.com/ggreer/the_silver_searcher) - if rg isn't available
+- [rez](https://github.com/AcademySoftwareFoundation/rez) - package version manager

@@ -28,3 +28,6 @@
 [submodule "external/feh"]
 	path = external/feh
 	url = git@github.com:derf/feh.git
+[submodule "external/flameshot"]
+	path = external/flameshot
+	url = git@github.com:flameshot-org/flameshot.git

@@ -1,0 +1,3 @@
+[submodule "external/JetBrainsMono"]
+	path = external/JetBrainsMono
+	url = git@github.com:JetBrains/JetBrainsMono.git

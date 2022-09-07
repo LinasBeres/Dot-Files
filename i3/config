@@ -36,7 +36,7 @@ mouse_warping none
 # font pango:DejaVu Sans Mono 10
 # font pango: Monospace9
 # font pango: System San Francisco Display 9
-font pango: JetBrains Mono Medium 8
+font pango: JetBrains Mono Medium 5
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -274,6 +274,8 @@ for_window [class="blueberry.py"] floating enabled
 for_window [class="Blueberry.py"] floating enabled
 for_window [class="pavucontrol"] floating enabled
 for_window [class="Pavucontrol"] floating enabled
+for_window [class="nvidia-settings"] floating enabled
+for_window [class="Nvidia-settings"] floating enabled
 for_window [class="slack"] layout tabbed
 for_window [class="Slack"] layout tabbed
 for_window [class="signal"] layout tabbed
@@ -299,9 +301,9 @@ assign [class="Slack"] $workspace9
 assign [class="signal"] $workspace9
 assign [class="Signal"] $workspace9
 
-assign [class="spotify"] $workspace6
-assign [class="Spotify"] $workspace6
-assign [title="Spotify"] $workspace6
+assign [class="spotify"] $workspace11
+assign [class="Spotify"] $workspace11
+assign [title="Spotify"] $workspace11
 
 # exec --no-startup-id compton -f
 exec --no-startup-id feh --bg-fill $HOME/Pictures/hoodwinked.jpg $HOME/Pictures/hoodwinked.jpg

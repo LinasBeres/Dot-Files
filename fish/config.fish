@@ -64,21 +64,19 @@ function fish_greeting
   title
 end
 
+# set -xU LESS_TERMCAP_md (printf "\e[01;31m")
+# set -xU LESS_TERMCAP_me (printf "\e[0m")
+# set -xU LESS_TERMCAP_se (printf "\e[0m")
+# set -xU LESS_TERMCAP_so (printf "\e[01;44;33m")
+# set -xU LESS_TERMCAP_ue (printf "\e[0m")
+# set -xU LESS_TERMCAP_us (printf "\e[01;32m")
+
 set fish_color_param 427b58
 
-
-###################################################
-########## PATHS & ENVIRON VARIABLES ##############
-###################################################
-
-# Path where my custom binaries are at
 set -gx PATH $PATH $HOME/bin
 
-# Defualt command for fzf to use
 set FZF_DEFAULT_COMMAND rg --files --hidden --smart-case --glob "!.git/*"
-# set FZF_DEFAULT_COMMAND ag
 
-# Tell fish to show useful info on git prompt
 set -g __fish_git_prompt_show_informative_status
 set -g __fish_git_prompt_showcolorhints
 
@@ -89,22 +87,21 @@ set -g __fish_git_prompt_showcolorhints
 # Random Aliases for extra stuff
 alias xup="xrdb -load ~/.Xresources"
 alias ls="ls --color=auto"
-alias ll="ls -l --color=auto"
-alias la="ls -la --color=auto"
 alias tree="tree -C"
 
 # New commands if using an offline computer - uncomment if can install the latest versions
 alias cat="$HOME/bin/ccat"
 alias ranger="$HOME/bin/ranger/ranger.py"
 alias ag="$HOME/bin/ag"
+alias ls="exa"
+alias ll="exa -lh"
+alias la="exa -alh"
+alias p="ipython3"
 
-# Alias for ls/ll/la cus normal ls is ancient and sucks
-# alias ls="exa"
-# alias ll="exa -lh"
-# alias la="exa -alh"
-
-# God amognst men
+# alias fn="nvim (fzf)"
 alias f="fzf"
+# alias nv="$HOME/bin/nvim"
+# alias nvim="$HOME/bin/nvim"
 
 # Git shortcuts
 alias gits="git status -s"
@@ -117,6 +114,10 @@ alias uk="setxkbmap uk"
 
 # Update shortcuts
 alias update="sudo apt update && sudo apt upgrade"
+
+# Aliases for rez
+alias re="rez-env"
+alias rb="rez-build -i"
 
 # Functions for Brightness on all monitors
 function bup

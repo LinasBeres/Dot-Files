@@ -61,7 +61,6 @@ Plug 'kshenoy/vim-signature'
 if has('nvim')
 	Plug 'voldikss/vim-floaterm'
 endif
-Plug 'Asheq/close-buffers.vim'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'liuchengxu/vista.vim'
@@ -95,11 +94,11 @@ set mouse=a
 let g:togglecursor_leave = "underline"
 
 " Tab spacing
+" set noexpandtab
 set tabstop=2
-set shiftwidth=2
+set shiftwidth=0
 set softtabstop=2
-set noexpandtab
-set smarttab
+" set smarttab
 
 " For Python
 autocmd FileType python setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
@@ -234,7 +233,7 @@ nnoremap <leader>r :Rg<CR>
 nnoremap <leader>v :Vista!!<CR>
 
 " Close buffers
-noremap <silent> <leader>d :Bdelete menu<CR>
+noremap <silent> <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
 
 "}}}
 

@@ -1,3 +1,27 @@
 [submodule "external/JetBrainsMono"]
 	path = external/JetBrainsMono
 	url = git@github.com:JetBrains/JetBrainsMono.git
+[submodule "external/fish-shell"]
+	path = external/fish-shell
+	url = git@github.com:fish-shell/fish-shell.git
+[submodule "external/i3"]
+	path = external/i3
+	url = git@github.com:i3/i3.git
+[submodule "external/kitty"]
+	path = external/kitty
+	url = git@github.com:kovidgoyal/kitty.git
+[submodule "external/neovim"]
+	path = external/neovim
+	url = git@github.com:neovim/neovim.git
+[submodule "external/rofi"]
+	path = external/rofi
+	url = git@github.com:davatorium/rofi.git
+[submodule "external/ripgrep"]
+	path = external/ripgrep
+	url = git@github.com:BurntSushi/ripgrep.git
+[submodule "external/the_silver_searcher"]
+	path = external/the_silver_searcher
+	url = git@github.com:ggreer/the_silver_searcher.git
+[submodule "external/exa"]
+	path = external/exa
+	url = git@github.com:ogham/exa.git

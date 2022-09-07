@@ -90,9 +90,7 @@ alias ls="ls --color=auto"
 alias tree="tree -C"
 
 # New commands if using an offline computer - uncomment if can install the latest versions
-alias cat="$HOME/bin/ccat"
 alias ranger="$HOME/bin/ranger/ranger.py"
-alias ag="$HOME/bin/ag"
 alias ls="exa"
 alias ll="exa -lh"
 alias la="exa -alh"

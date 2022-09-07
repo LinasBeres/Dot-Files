@@ -37,3 +37,6 @@
 [submodule "external/rez"]
 	path = external/rez
 	url = git@github.com:AcademySoftwareFoundation/rez.git
+[submodule "external/neofetch"]
+	path = external/neofetch
+	url = git@github.com:dylanaraps/neofetch.git

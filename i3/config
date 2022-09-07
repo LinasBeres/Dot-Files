@@ -309,7 +309,7 @@ exec --no-startup-id firefox
 exec --no-startup-id slack
 exec --no-startup-id signal-desktop
 exec --no-startup-id flameshot
-exec --no-startup-id spotify
+exec --no-startup-id snap run spotify
 
 #exec --no-startup-id /user_data/ARCHIVE/autocutsel-0.10.0/autocutsel -selection CLIPBOARD -fork
 #exec --no-startup-id /user_data/ARCHIVE/autocutsel-0.10.0/autocutsel -selection PRIMARY -fork

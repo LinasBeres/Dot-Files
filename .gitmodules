@@ -43,3 +43,6 @@
 [submodule "external/nerd-fonts"]
 	path = external/nerd-fonts
 	url = https://github.com/ryanoasis/nerd-fonts
+[submodule "external/tre"]
+	path = external/tre
+	url = https://github.com/dduan/tre

@@ -46,3 +46,6 @@
 [submodule "external/tre"]
 	path = external/tre
 	url = https://github.com/dduan/tre
+[submodule "external/rez-packages"]
+	path = external/rez-packages
+	url = git@github.com:LinasBeres/rez-packages.git

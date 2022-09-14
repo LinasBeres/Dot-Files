@@ -62,8 +62,10 @@ if has('nvim')
 	Plug 'voldikss/vim-floaterm'
 endif
 
+" Language completion
 Plug 'neovim/nvim-lspconfig'
 Plug 'liuchengxu/vista.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 
 Plug '~/.fzf'
@@ -277,7 +279,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'clangd', 'vimls', 'denols' }
+local servers = { 'clangd', 'denols', 'vimls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,

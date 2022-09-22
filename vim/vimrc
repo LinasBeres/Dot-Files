@@ -58,6 +58,7 @@ Plug 'wincent/terminus'
 Plug 'machakann/vim-highlightedyank'
 Plug 'kshenoy/vim-signature'
 " Plug 'yggdroot/indentline'
+Plug 'bogado/file-line'
 if has('nvim')
 	Plug 'voldikss/vim-floaterm'
 endif

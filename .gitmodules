@@ -49,3 +49,6 @@
 [submodule "external/rez-packages"]
 	path = external/rez-packages
 	url = git@github.com:LinasBeres/rez-packages.git
+[submodule "external/scrot"]
+	path = external/scrot
+	url = git@github.com:dreamer/scrot.git

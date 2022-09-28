@@ -394,7 +394,7 @@ its contents. >
   let g:airline_right_sep = ''
   let g:airline_right_alt_sep = ''
   let g:airline_symbols.branch = ''
-  let g:airline_symbols.colnr = ' :'
+  let g:airline_symbols.colnr = ' ℅:'
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ' :'
   let g:airline_symbols.maxlinenr = '☰ '
@@ -729,7 +729,7 @@ you can use.
   let g:airline#extensions#default#section_truncate_width = {
       \ 'b': 79,
       \ 'x': 60,
-      \ 'y': 88,
+      \ 'y': 80,
       \ 'z': 45,
       \ 'warning': 80,
       \ 'error': 80,
@@ -966,8 +966,17 @@ nvimlsp <https://github.com/neovim/nvim-lsp>
 * nvimlsp error_symbol >
   let airline#extensions#nvimlsp#error_symbol = 'E:'
 <
-* nvimlsp warning >
+* nvimlsp warning - needs v:lua.vim.diagnostic.get
   let airline#extensions#nvimlsp#warning_symbol = 'W:'
+
+* nvimlsp show_line_numbers - needs v:lua.vim.diagnostic.get
+  let airline#extensions#nvimlsp#show_line_numbers = 1
+
+* nvimlsp open_lnum_symbol - needs v:lua.vim.diagnostic.get
+  let airline#extensions#nvimlsp#open_lnum_symbol = '(L'
+
+* nvimlsp close_lnum_symbol - needs v:lua.vim.diagnostic.get
+  let airline#extensions#nvimlsp#close_lnum_symbol = ')'
 
 -------------------------------------                    *airline-obsession*
 vim-obsession <https://github.com/tpope/vim-obsession>
@@ -2079,6 +2088,11 @@ A. Themes have been extracted into the vim-airlines-themes repository. Simply
 Q. Performance is bad
 A. Check the question at the wiki:
    https://github.com/vim-airline/vim-airline/wiki/FAQ#i-have-a-performance-problem
+
+Q. Something strange happens on certain autocommands
+A. Try to disable the autocommand by setting the 'eventignore' option like
+   this: >
+   set eventignore+=FocusGained
 
 Solutions to other common problems can be found in the Wiki:
 <https://github.com/vim-airline/vim-airline/wiki/FAQ>

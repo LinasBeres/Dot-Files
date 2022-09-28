@@ -1,4 +1,4 @@
-local configs = require 'lspconfig.configs'
+local api = vim.api
 local windows = require 'lspconfig.ui.windows'
 local util = require 'lspconfig.util'
 
@@ -36,24 +36,35 @@ local function remove_newlines(cmd)
   return cmd
 end
 
-local function make_config_info(config)
+local cmd_type = {
+  ['function'] = function(_)
+    return '<function>', 'NA'
+  end,
+  ['table'] = function(config)
+    local cmd = remove_newlines(config.cmd)
+    if vim.fn.executable(config.cmd[1]) == 1 then
+      return cmd, 'true'
+    end
+    return cmd, error_messages.cmd_not_found
+  end,
+}
+
+local function make_config_info(config, bufnr)
   local config_info = {}
   config_info.name = config.name
   config_info.helptags = {}
+
   if config.cmd then
-    config_info.cmd = remove_newlines(config.cmd)
-    if vim.fn.executable(config.cmd[1]) == 1 then
-      config_info.cmd_is_executable = 'true'
-    else
-      config_info.cmd_is_executable = error_messages.cmd_not_found
-    end
+    config_info.cmd, config_info.cmd_is_executable = cmd_type[type(config.cmd)](config)
   else
     config_info.cmd = 'cmd not defined'
     config_info.cmd_is_executable = 'NA'
   end
 
-  local buffer_dir = vim.fn.expand '%:p:h'
-  local root_dir = config.get_root_dir(buffer_dir)
+  local buffer_dir = api.nvim_buf_call(bufnr, function()
+    return vim.fn.expand '%:p:h'
+  end)
+  local root_dir = config.get_root_dir and config.get_root_dir(buffer_dir)
   if root_dir then
     config_info.root_dir = root_dir
   else
@@ -102,7 +113,7 @@ end
 local function make_client_info(client)
   local client_info = {}
 
-  client_info.cmd = remove_newlines(client.config.cmd)
+  client_info.cmd = cmd_type[type(client.config.cmd)](client.config)
   if client.workspaceFolders then
     client_info.root_dir = client.workspaceFolders[1].name
   else
@@ -148,16 +159,17 @@ return function()
   local buf_clients = vim.lsp.buf_get_clients()
   local clients = vim.lsp.get_active_clients()
   local buffer_filetype = vim.bo.filetype
+  local original_bufnr = api.nvim_get_current_buf()
+
+  windows.default_options.wrap = true
+  windows.default_options.breakindent = true
+  windows.default_options.breakindentopt = 'shift:25'
+  windows.default_options.showbreak = 'NONE'
 
   local win_info = windows.percentage_range_window(0.8, 0.7)
   local bufnr, win_id = win_info.bufnr, win_info.win_id
 
   local buf_lines = {}
-
-  local buf_client_names = {}
-  for _, client in pairs(buf_clients) do
-    table.insert(buf_client_names, client.name)
-  end
 
   local buf_client_ids = {}
   for _, client in pairs(buf_clients) do
@@ -165,13 +177,14 @@ return function()
   end
 
   local other_active_clients = {}
-  local client_names = {}
   for _, client in pairs(clients) do
     if not vim.tbl_contains(buf_client_ids, client.id) then
       table.insert(other_active_clients, client)
     end
-    table.insert(client_names, client.name)
   end
+
+  -- insert the tips at the top of window
+  table.insert(buf_lines, 'Use [q] or [Esc] to quit the window')
 
   local header = {
     '',
@@ -214,28 +227,45 @@ return function()
   if not vim.tbl_isempty(other_matching_configs) then
     vim.list_extend(buf_lines, other_matching_configs_header)
     for _, config in pairs(other_matching_configs) do
-      vim.list_extend(buf_lines, make_config_info(config))
+      vim.list_extend(buf_lines, make_config_info(config, original_bufnr))
     end
   end
 
   local matching_config_header = {
     '',
-    'Configured servers list: ' .. table.concat(vim.tbl_keys(configs), ', '),
+    'Configured servers list: ' .. table.concat(util.available_servers(), ', '),
   }
+
   vim.list_extend(buf_lines, matching_config_header)
 
   local fmt_buf_lines = indent_lines(buf_lines, ' ')
 
   fmt_buf_lines = vim.lsp.util._trim(fmt_buf_lines, {})
 
-  vim.api.nvim_buf_set_lines(bufnr, 0, -1, true, fmt_buf_lines)
-  vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
-  vim.api.nvim_buf_set_option(bufnr, 'filetype', 'lspinfo')
+  api.nvim_buf_set_lines(bufnr, 0, -1, true, fmt_buf_lines)
+  api.nvim_buf_set_option(bufnr, 'modifiable', false)
+  api.nvim_buf_set_option(bufnr, 'filetype', 'lspinfo')
 
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<esc>', '<cmd>bd<CR>', { noremap = true })
-  vim.api.nvim_command(
-    string.format('autocmd BufHidden,BufLeave <buffer> ++once lua pcall(vim.api.nvim_win_close, %d, true)', win_id)
-  )
+  local augroup = api.nvim_create_augroup('lspinfo', { clear = false })
+
+  local function close()
+    api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+    if api.nvim_buf_is_valid(bufnr) then
+      api.nvim_buf_delete(bufnr, { force = true })
+    end
+    if api.nvim_win_is_valid(win_id) then
+      api.nvim_win_close(win_id, true)
+    end
+  end
+
+  vim.keymap.set('n', '<ESC>', close, { buffer = bufnr, nowait = true })
+  vim.keymap.set('n', 'q', close, { buffer = bufnr, nowait = true })
+  api.nvim_create_autocmd({ 'BufDelete', 'BufLeave', 'BufHidden' }, {
+    once = true,
+    buffer = bufnr,
+    callback = close,
+    group = augroup,
+  })
 
   vim.fn.matchadd(
     'Error',
@@ -247,15 +277,15 @@ return function()
       .. error_messages.root_dir_not_found
   )
 
-  vim.cmd 'let m=matchadd("string", "true")'
-  vim.cmd 'let m=matchadd("error", "false")'
-  for _, config in pairs(configs) do
-    vim.fn.matchadd('Title', '\\%(Client\\|Config\\):.*\\zs' .. config.name .. '\\ze')
-    vim.fn.matchadd('Visual', 'list:.*\\zs' .. config.name .. '\\ze')
-    if config.filetypes then
-      for _, ft in pairs(config.filetypes) do
-        vim.fn.matchadd('Type', '\\%(filetypes\\|filetype\\):.*\\zs' .. ft .. '\\ze')
-      end
-    end
-  end
+  vim.cmd [[
+    syn keyword String true
+    syn keyword Error false
+    syn match LspInfoFiletypeList /\<filetypes\?:\s*\zs.*\ze/ contains=LspInfoFiletype
+    syn match LspInfoFiletype /\k\+/ contained
+    syn match LspInfoTitle /^\s*\%(Client\|Config\):\s*\zs\k\+\ze/
+    syn match LspInfoListList /^\s*Configured servers list:\s*\zs.*\ze/ contains=LspInfoList
+    syn match LspInfoList /\k\+/ contained
+  ]]
+
+  api.nvim_buf_add_highlight(bufnr, 0, 'LspInfoTip', 0, 0, -1)
 end

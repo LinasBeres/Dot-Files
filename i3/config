@@ -42,7 +42,7 @@ font pango: JetBrains Mono Medium 5
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec $HOME/bin/kitty
+bindsym $mod+Return exec $HOME/bin/st
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -228,7 +228,7 @@ client.background       $base07
 # finds out, if available)
 
 bar {
-        status_command $HOME/bin/i3blocks -c $HOME/.config/i3/i3blocks.conf
+        status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
         position bottom
         colors {
           background $base00
@@ -246,6 +246,8 @@ bar {
 
 #exec --no-startup-id nitrogen --restore
 exec --no-startup-id xset r rate 250 60
+exec --no-startup-id parcellite
+exec --no-startup-id hector
 
 # Lock screen execution
 bindsym $mod+Shift+x exec $HOME/bin/scripts/lock.sh
@@ -261,6 +263,8 @@ for_window [class="Xfce4-notifyd"] floating enable; border none; focus mode_togg
 for_window [class="Skype"] floating enable
 for_window [class="Nuke"] floating enable
 for_window [class="Google-chrome"] layout tabbed
+for_window [class="Qasmixer"] floating enable
+for_window [title="Ivy Browser *"] layout tabbed
 for_window [title="Git.*"] floating enable
 for_window [title=".*gitk"] floating enable
 for_window [class="Maya.bin"] layout tabbed
@@ -276,12 +280,14 @@ for_window [class="slack"] layout tabbed
 for_window [class="Slack"] layout tabbed
 for_window [class="signal"] layout tabbed
 for_window [class="Signal"] layout tabbed
+for_window [class="usdview"] floating enabled
 
 
 # default workspaces
 assign [class="Pidgin"] $workspace9
 assign [class="Thunderbird"] $workspace1
 assign [class="Firefox"] $workspace10
+assign [class="Navigator"] $workspace10
 assign [class="Google-chrome"] $workspace10
 assign [class="Nuke"] $workspace5
 assign [class="Maya.bin"] $workspace8
@@ -309,7 +315,8 @@ exec --no-startup-id firefox
 exec --no-startup-id slack
 exec --no-startup-id signal-desktop
 exec --no-startup-id flameshot
-exec --no-startup-id snap run spotify
+exec --no-startup-id thunderbird
+exec --no-startup-id spotify
 
 #exec --no-startup-id /user_data/ARCHIVE/autocutsel-0.10.0/autocutsel -selection CLIPBOARD -fork
 #exec --no-startup-id /user_data/ARCHIVE/autocutsel-0.10.0/autocutsel -selection PRIMARY -fork

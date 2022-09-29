@@ -33,7 +33,7 @@ function fish_prompt
   echo -n (set_color -o red)$REZ_ENV_PROMPT' '
 
   # username@hostname
-  if [ (hostname -s) != "cs-gruvi-53s" ]
+  if [ (whoami) != "lberesna" ]
 	  echo -n (set_color -o grey)'|'(set_color -o yellow)(whoami)(set_color -o red)@(set_color -o yellow)(hostname -s)(set_color -o grey)'|'
   end
 
@@ -95,6 +95,7 @@ alias ls="exa --icons"
 alias ll="exa --icons -lh"
 alias la="exa --icons -alh"
 alias p="ipython3"
+alias weather="curl wttr.in"
 
 # alias fn="nvim (fzf)"
 alias f="fzf"
@@ -116,6 +117,9 @@ alias update="sudo apt update && sudo apt upgrade"
 # Aliases for rez
 alias re="rez-env"
 alias rb="rez-build -i"
+
+# Alias for kitty image view
+alias icat="kitty +kitten icat"
 
 # Functions for Brightness on all monitors
 function bup

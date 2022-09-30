@@ -17,7 +17,7 @@ This repo consists of files, links and packages that I need storing on github fo
 
 - **Shell:** [fish](https://github.com/fish-shell/fish-shell)
 - **WM:** [i3](https://github.com/i3/i3)
-- **Terminal:** [kitty](https://github.com/kovidgoyal/kitty)
+- **Terminal:** [st](https://github.com/LinasBeres/linas-st) (My own version)
 - **Editor:** [neovim](https://github.com/neovim/neovim)
 - **Font:** [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono)
 - **Launcher:** [Rofi](https://github.com/davatorium/rofi)

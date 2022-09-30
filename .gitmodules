@@ -52,3 +52,6 @@
 [submodule "external/scrot"]
 	path = external/scrot
 	url = git@github.com:dreamer/scrot.git
+[submodule "external/linas-st"]
+	path = external/linas-st
+	url = git@github.com:LinasBeres/linas-st.git

@@ -52,7 +52,7 @@ cargo install ripgrep
 cargo install exa
 
 # Other nice stuff
-dnf install -y the_silver_searcher flashfetch clang-tools-extra
+dnf install -y the_silver_searcher flashfetch clang-tools-extra firefox google-chrome-stable wget
 pip install -U jedi-language-server
 
 dnf install -y meson imlib2-devel libX11-devel libXfixes-devel
@@ -87,3 +87,12 @@ cd nerd-fonts
 fc-cache -fv
 
 cd ../..
+
+# slack
+wget https://downloads.slack-edge.com/releases/linux/4.21.1/prod/x64/slack-4.21.1-0.1.fc21.x86_64.rpm
+dnf install -y ./slack-4.21.1-0.1.fc21.x86_64.rpm
+rm ./slack-4.21.1-0.1.fc21.x86_64.rpm
+
+# Spotify
+dnf install -y snapd
+snap install spotify

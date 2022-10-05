@@ -55,3 +55,6 @@
 [submodule "external/linas-st"]
 	path = external/linas-st
 	url = git@github.com:LinasBeres/linas-st.git
+[submodule "external/fastfetch"]
+	path = external/fastfetch
+	url = git@github.com:LinusDierheimer/fastfetch.git

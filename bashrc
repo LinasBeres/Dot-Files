@@ -25,7 +25,7 @@ if [ -d ~/.bashrc.d ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -lF'
 alias la='ls -A'
 alias l='ls -CF'
 

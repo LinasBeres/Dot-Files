@@ -1,4 +1,48 @@
 ! These options only take effect on startup.
+
+! --------------------------------------------------------- !
+! -- DDDDDDDDD    M       M  EEEEEEE  N      N  U      U -- !
+! -- D        D   M M   M M  E        N N    N  U      U -- !
+! -- D         D  M  M M  M  EEEEEEE  N  N   N  U      U -- !
+! -- D         D  M   M   M  EEEEEEE  N   N  N  U      U -- !
+! -- D        D   M       M  E        N    N N  U      U -- !
+! -- DDDDDDDDD    M       M  EEEEEEE  N     NN   UUUUUU  -- !
+! --------------------------------------------------------- !
+
+dmenu.prompt: run:
+dmenu.centered: 1
+dmenu.colorprompt: 0
+dmenu.fuzzy: 1
+dmenu.min_width: 750
+dmenu.lines: 9
+dmenu.columns: 3
+dmenu.lineheight: 20
+dmenu.border_width: 3
+
+dmenu.normfgcolor: #ebdbb2
+dmenu.normbgcolor: #272727
+dmenu.normHighlightfgcolor: #A1C9C9
+dmenu.normHighlightbgcolor: #272727
+dmenu.midfgcolor: #ebdbb2
+dmenu.midbgcolor: #121212
+dmenu.midHighlightfgcolor: #A1C9C9
+dmenu.midHighlightbgcolor: #121212
+dmenu.selfgcolor: #272727
+dmenu.selbgcolor: #af875f
+dmenu.selHighlightfgcolor: #87afaf
+dmenu.selHighlightbgcolor: #af875f
+
+
+! --------------------------------------------------------- !
+! ------------------   SSS  TTTTTTTTTTT ------------------- !
+! ------------------  S          T      ------------------- !
+! ------------------ S           T      ------------------- !
+! ------------------  SSS        T      ------------------- !
+! ------------------     S       T      ------------------- !
+! ------------------    S        T      ------------------- !
+! ------------------ SSS         T      ------------------- !
+! --------------------------------------------------------- !
+
 st.termname:     st-256color
 ! if you do not set shell, precedence is: -e arg, utmp option, SHELL env var, /etc/passwd shell
 ! st.shell:        /u/libe/bin/fish-3.0.2/fish

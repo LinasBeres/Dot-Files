@@ -97,10 +97,7 @@ alias la="exa --icons -alh"
 alias p="ipython3"
 alias weather="curl wttr.in"
 
-# alias fn="nvim (fzf)"
 alias f="fzf"
-# alias nv="$HOME/bin/nvim"
-# alias nvim="$HOME/bin/nvim"
 
 # Git shortcuts
 alias gits="git status -s"
@@ -112,11 +109,12 @@ alias us="setxkbmap us"
 alias uk="setxkbmap uk"
 
 # Update shortcuts
-alias update="sudo apt update && sudo apt upgrade"
+alias update="sudo dnf upgrade"
 
 # Aliases for rez
 alias re="rez-env"
 alias rb="rez-build -i"
+alias rc="rez context"
 
 # Alias for kitty image view
 alias icat="kitty +kitten icat"

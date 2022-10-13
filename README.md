@@ -20,7 +20,7 @@ This repo consists of files, links and packages that I need storing on github fo
 - **Terminal:** [st](https://github.com/LinasBeres/linas-st) (My own version)
 - **Editor:** [neovim](https://github.com/neovim/neovim)
 - **Font:** [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono)
-- **Launcher:** [Rofi](https://github.com/davatorium/rofi)
+- **Launcher:** [Rofi](https://github.com/davatorium/rofi) / [dmenu](https://github.com/LinasBeres/linas-dmenu)
 
 ### Dev Environment
 

@@ -61,3 +61,6 @@
 [submodule "external/linas-dmenu"]
 	path = external/linas-dmenu
 	url = git@github.com:LinasBeres/linas-dmenu.git
+[submodule "external/polybar"]
+	path = external/polybar
+	url = git@github.com:polybar/polybar.git

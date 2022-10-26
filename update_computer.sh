@@ -86,6 +86,19 @@ cd nerd-fonts
 ./install.sh
 fc-cache -fv
 
+cd ..
+cd polybar
+git submodule update --recursive
+mkdir build
+cd build
+sudo dnf install -y gcc-c++ clang git cmake python3-sphinx python3-packaging
+sudo dnf install -y cairo-devel libuv xcb-util-devel libxcb-devel xcb-proto xcb-util-image-devel xcb-util-wm-devel
+sudo dnf install -y xcb-util-xrm-devel xcb-util-cursor-devel alsa-lib-devel pulseaudio-libs-devel i3-devel jsoncpp-devel libmpdclient-devel libcurl-devel wireless-tools-devel libnl3-devel
+cmake ..
+make -j5
+sudo make install
+cd ..
+
 cd ../..
 
 # slack

@@ -161,9 +161,9 @@ workspace "9" output eDP-1
 workspace "10" output eDP-1
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload; exec notify-send -u low "Reload i3 config"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r restart; exec notify-send -u low "Restart i3 config"
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'End  X session?' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -234,9 +234,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- $HOME/bin/scripts/lock.sh
 bindsym $mod+Shift+x exec $HOME/bin/scripts/lock.sh
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/bin/scripts/increaseVolume.sh #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/bin/scripts/decreaseVolume.sh #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id $HOME/bin/scripts/muteVolume.sh # mute sound
 
 # Brightness Controls
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
@@ -262,6 +262,8 @@ for_window [class="Signal"] layout tabbed
 for_window [class="usdview"] floating enabled
 for_window [class="blueman-manager"] floating enabled
 for_window [class="Blueman-manager"] floating enabled
+for_window [class="gnome-calendar"] floating enabled
+for_window [class="gnome-control-center"] floating enabled
 
 # default workspaces
 assign [class="spotify"] $workspace8

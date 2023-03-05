@@ -36,16 +36,16 @@ mouse_warping none
 # font pango:DejaVu Sans Mono 10
 # font pango: Monospace9
 # font pango: System San Francisco Display 9
-font pango: JetBrains Mono Medium 5
+font pango: JetBrains Mono Medium 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec $HOME/bin/st
+bindsym $mod+Return exec $HOME/bin/st; exec notify-send -u low "Launched Terminal"
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+Shift+q kill; exec notify-send -u low "Closed Window"
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run
@@ -113,17 +113,16 @@ focus_on_window_activation urgent
 # or smart
 
 # xrandr is what prints these
-set $workspace1 "1 "
-set $workspace2 "2 "
-set $workspace3 "3 "
-set $workspace4 "4 "
-set $workspace5 "5 "
-set $workspace6 "6  "
-set $workspace7 "7 "
-set $workspace8 "8 "
-set $workspace9 "9  "
-set $workspace10 "10  "
-set $workspace11 "11  "
+set $workspace1 "1"
+set $workspace2 "2"
+set $workspace3 "3"
+set $workspace4 "4"
+set $workspace5 "5"
+set $workspace6 "6"
+set $workspace7 "7"
+set $workspace8 "8"
+set $workspace9 "9"
+set $workspace10 "10"
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1
@@ -136,7 +135,6 @@ bindsym $mod+Shift+7 move container to workspace $workspace7
 bindsym $mod+Shift+8 move container to workspace $workspace8
 bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace10
-bindsym $mod+Shift+p move container to workspace $workspace11
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -149,20 +147,18 @@ bindsym $mod+7 workspace $workspace7
 bindsym $mod+8 workspace $workspace8
 bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
-bindsym $mod+p workspace $workspace11
 
 # xrandr --current
-workspace "1 " output DP-4
-workspace "2 " output DP-2
-workspace "3 " output DP-4
-workspace "4 " output DP-2
-workspace "5 " output DP-4
-workspace "6  " output DP-2
-workspace "7 " output DP-4
-workspace "8 " output DP-2
-workspace "9  " output DP-4
-workspace "10  " output DP-2
-workspace "11  " output DP-0.8
+workspace "1" output eDP-1
+workspace "2" output eDP-1
+workspace "3" output eDP-1
+workspace "4" output eDP-1
+workspace "5" output eDP-1
+workspace "6 " output eDP-1
+workspace "7" output eDP-1
+workspace "8" output eDP-1
+workspace "9" output eDP-1
+workspace "10" output eDP-1
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -224,54 +220,37 @@ client.urgent           $base08 $base08 $base00 $base08 $base08
 client.placeholder      $base00 $base00 $base05 $base00 $base00
 client.background       $base07
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+# Poly Bar
+exec_always killall polybar; polybar main
 
-bar {
-        status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
-        position bottom
-        colors {
-          background $base00
-          separator  $base01
-          statusline $base04
-
-          # State             Border  BG      Text
-          focused_workspace   $base0A $base0A $base00
-          active_workspace    $base03 $base03 $base00
-          inactive_workspace  $base01 $base01 $base05
-          urgent_workspace    $base08 $base08 $base00
-          binding_mode        $base00 $base0A $base00
-        }
-}
+# Remove title menu bar
+for_window [class="^.*"] border pixel 1
 
 #exec --no-startup-id nitrogen --restore
-exec --no-startup-id xset r rate 250 60
 exec --no-startup-id parcellite
-exec --no-startup-id hector
 
 # Lock screen execution
+exec --no-startup-id xss-lock --transfer-sleep-lock -- $HOME/bin/scripts/lock.sh --nofork --
 bindsym $mod+Shift+x exec $HOME/bin/scripts/lock.sh
-bindsym $mod+z exec zim
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-for_window [class="xv"] floating enable
-for_window [class="Xfce4-notifyd"] floating enable; border none; focus mode_toggle
+# Brightness Controls
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+# Screenshot
+bindsym Print exec --no-startup-id flameshot gui
+
+# Floating
 for_window [class="Skype"] floating enable
-for_window [class="Nuke"] floating enable
 for_window [class="Google-chrome"] layout tabbed
 for_window [class="Qasmixer"] floating enable
-for_window [title="Ivy Browser *"] layout tabbed
 for_window [title="Git.*"] floating enable
 for_window [title=".*gitk"] floating enable
-for_window [class="Maya.bin"] layout tabbed
-for_window [class="maya.bin"] layout tabbed
-for_window [title=".*Houdini"] layout tabbed
-for_window [class="blueberry.py"] floating enabled
-for_window [class="Blueberry.py"] floating enabled
 for_window [class="pavucontrol"] floating enabled
 for_window [class="Pavucontrol"] floating enabled
 for_window [class="nvidia-settings"] floating enabled
@@ -281,42 +260,42 @@ for_window [class="Slack"] layout tabbed
 for_window [class="signal"] layout tabbed
 for_window [class="Signal"] layout tabbed
 for_window [class="usdview"] floating enabled
-
+for_window [class="blueman-manager"] floating enabled
+for_window [class="Blueman-manager"] floating enabled
 
 # default workspaces
-assign [class="Pidgin"] $workspace9
-assign [class="Thunderbird"] $workspace1
-assign [class="Firefox"] $workspace10
-assign [class="Navigator"] $workspace10
-assign [class="Google-chrome"] $workspace10
-assign [class="Nuke"] $workspace5
-assign [class="Maya.bin"] $workspace8
-assign [class="maya.bin"] $workspace8
-assign [class="3DE4"] $workspace6
-assign [title=".*Houdini"] $workspace8
-assign [class="MriBin"] $workspace8
-assign [class="FLTK"] $workspace8
-assign [class="Nxplayer.bin"] $workspace10
-
+assign [class="spotify"] $workspace8
+assign [class="Spotify"] $workspace8
 assign [class="slack"] $workspace9
 assign [class="Slack"] $workspace9
 assign [class="signal"] $workspace9
 assign [class="Signal"] $workspace9
+assign [class="Firefox"] $workspace10
+assign [class="firefox"] $workspace10
+assign [class="Navigator"] $workspace10
+assign [class="Google-chrome"] $workspace10
 
-assign [class="spotify"] $workspace11
-assign [class="Spotify"] $workspace11
-assign [title="Spotify"] $workspace11
 
-# exec --no-startup-id compton -f
+# Autostart applications
+exec --no-startup-id picom
 exec --no-startup-id feh --bg-fill $HOME/Pictures/hoodwinked.jpg $HOME/Pictures/hoodwinked.jpg
-#exec --no-startup-id qasmixer --tray
-exec --no-startup-id blueberry-tray
 exec --no-startup-id firefox
 exec --no-startup-id slack
-exec --no-startup-id signal-desktop
+exec --no-startup-id flatpak run com.spotify.Client
 exec --no-startup-id flameshot
-exec --no-startup-id thunderbird
-exec --no-startup-id spotify
 
-#exec --no-startup-id /user_data/ARCHIVE/autocutsel-0.10.0/autocutsel -selection CLIPBOARD -fork
-#exec --no-startup-id /user_data/ARCHIVE/autocutsel-0.10.0/autocutsel -selection PRIMARY -fork
+# Type and move faster
+exec --no-startup-id xset r rate 250 60
+
+#####################
+####### GAPS ########
+#####################
+gaps inner 10
+gaps outer 0
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace) 
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on

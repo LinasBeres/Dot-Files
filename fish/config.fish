@@ -52,7 +52,7 @@ function fish_right_prompt
 
   echo -n (set_color blue)'❮'(set_color yellow)'❮'(set_color red)'❮'
   set_color -o normal
-  echo (fish_git_prompt)
+	echo (fish_git_prompt)
 end
 
 function fish_title
@@ -60,9 +60,9 @@ function fish_title
   pwd
 end
 
-function fish_greeting
-  title
-end
+# function fish_greeting
+  # title
+# end
 
 # set -xU LESS_TERMCAP_md (printf "\e[01;31m")
 # set -xU LESS_TERMCAP_me (printf "\e[0m")
@@ -106,7 +106,13 @@ alias gitall="git add -u; git commit -m"
 
 # Keyboard shortcuts
 alias us="setxkbmap us"
-alias uk="setxkbmap uk"
+alias uk="setxkbmap gb"
+
+# flatpak
+alias spotify="flatpak run com.spotify.Client"
+alias signal="flatpak run org.signal.Signal"
+alias touche="flatpak run com.github.joseexposito.touche"
+alias steam="flatpak run com.valvesoftware.Steam"
 
 # Update shortcuts
 alias update="sudo dnf upgrade"

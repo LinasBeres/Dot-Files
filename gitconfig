@@ -5,7 +5,8 @@
 	email = beres.linas@gmail.com
 
 [alias]
-        lola= log --graph --decorate --pretty=oneline --abbrev-commit --all
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	pullall = "!f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
 [color]
   branch = auto
   diff = auto
@@ -23,3 +24,5 @@
   added = yellow
   changed = green
   untracked = cyan
+[bash]
+	showInformativeStatus = true

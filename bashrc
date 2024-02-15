@@ -72,13 +72,11 @@ unset rc
 export VISUAL=$(which nvim)
 export EDITOR="$VISUAL"
 
+# exa environmental variable
+export EXA_ICON_SPACING=2
+
 # Rust and Cargo
 export PATH=$HOME/.cargo/bin${PATH:+:${PATH}}
-
-# Cuda
-export PATH=/usr/local/cuda-11.7/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64\
-                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 # Rez
 export REZ_REPO_PAYLOAD_DIR="$HOME/share"
@@ -93,3 +91,9 @@ export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 
 alias f="export SHELL=$(which fish) && fish"
+
+PATH="/home/lberesna/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/lberesna/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/lberesna/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/lberesna/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/lberesna/perl5"; export PERL_MM_OPT;

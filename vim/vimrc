@@ -22,8 +22,7 @@ Plug 'ryanoasis/vim-devicons'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'plasticboy/vim-markdown'
-Plug 'ap/vim-css-color'
-Plug 'hail2u/vim-css3-syntax'
+Plug 'lilydjwg/colorizer'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'elzr/vim-json'
 Plug 'maxmellon/vim-jsx-pretty'
@@ -284,7 +283,7 @@ lua << EOF
 
 	-- Use a loop to conveniently call 'setup' on multiple servers and
 	-- map buffer local keybindings when the language server attaches
-	local servers = { 'clangd', 'denols', 'vimls' }
+	local servers = { 'clangd' }
 	for _, lsp in ipairs(servers) do
 	  nvim_lsp[lsp].setup {
 	    on_attach = on_attach,
@@ -381,5 +380,7 @@ if has('nvim') && $TERM == 'screen-256color'
 	nnoremap <silent> <C-o> :call fzf#vim#files('.', {'options': '--prompt ""'})<CR>
 	nnoremap <silent> <leader>b :Buffers<CR>
 endif
+
+set viminfo='100,n$HOME/.vim/files/info/viminfo
 
 "}}}

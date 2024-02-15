@@ -91,9 +91,9 @@ alias tree="tree -C"
 
 # New commands if using an offline computer - uncomment if can install the latest versions
 alias ranger="$HOME/bin/ranger/ranger.py"
-alias ls="exa --icons"
-alias ll="exa --icons -lh"
-alias la="exa --icons -alh"
+alias ls="eza --icons"
+alias ll="eza --icons -lh"
+alias la="eza --icons -alh"
 alias p="ipython3"
 alias weather="curl wttr.in"
 

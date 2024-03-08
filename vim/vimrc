@@ -96,11 +96,12 @@ set mouse=a
 " Cursor shape and stuff
 let g:togglecursor_leave = "underline"
 
-" Tab spacing
-" set noexpandtab
-set tabstop=2
+" Tab/spaces spacing
+" set noexpandtab " <- Use Tabs
+set expandtab " <- Use spaces
+set tabstop=4
 set shiftwidth=0
-set softtabstop=2
+set softtabstop=4
 " set smarttab
 
 " For Python
@@ -241,8 +242,9 @@ noremap <silent> <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
 "}}}
 
 " LANGUAGE SERVER {{{
-
+nnoremap <A-a> :ClangdSwitchSourceHeader<CR>
 if has('nvim')
+
 lua << EOF
 	local nvim_lsp = require('lspconfig')
 

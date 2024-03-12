@@ -35,7 +35,7 @@ if type -q rg
 elif type -q ag
     set -qx FZF_DEFAULT_COMMAND ag --files --hidden --smart-case --glob "!.git/*"
 else
-    set -qx FZF_DEFAULT_COMMAND gep --files --hidden --smart-case --glob "!.git/*"A
+    set -qx FZF_DEFAULT_COMMAND grep --files --hidden --smart-case --glob "!.git/*"A
 end
 
 # fish git

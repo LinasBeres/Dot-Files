@@ -1,32 +1,32 @@
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-	name  = LinasBeres
-	email = beres.linas@gmail.com
+    name  = LinasBeres
+    email = beres.linas@gmail.com
 
 [alias]
-	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	pullall = "!f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    pullall = "!f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
 [color]
-  branch = auto
-  diff = auto
-  status = auto
+    branch = auto
+    diff = auto
+    status = auto
 [color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
+    current = yellow reverse
+    local = yellow
+    remote = green
 [color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
 [color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
+    added = yellow
+    changed = green
+    untracked = cyan
 [bash]
-	showInformativeStatus = true
+    showInformativeStatus = true
 [alias]
-	pullall = "!f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
+    pullall = "!f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
 [core]
-	excludesFile = ~/.gitignore
+    excludesFile = ~/.gitignore

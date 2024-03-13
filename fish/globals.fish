@@ -31,7 +31,7 @@ set -Ux CMAKE_EXPORT_COMPILE_COMMANDS 1
 
 # fzf use rg/ag
 if type -q rg
-    set -Ux FZF_DEFAULT_COMMAND rg --files --hidden --smart-case --glob "!.git/*"
+    set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden --smart-case --glob '!.git/*'"
 else if type -q ag
     set -Ux FZF_DEFAULT_COMMAND ag --files --hidden --smart-case --glob "!.git/*"
 else

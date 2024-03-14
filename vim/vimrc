@@ -247,7 +247,7 @@ noremap <silent> <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
 
 "}}}
 
-" LANGUAGE SERVER {{{
+" NVIM LUA CONFIGS {{{
 if has('nvim')
     lua require('config')
     lua require('lsp_config')

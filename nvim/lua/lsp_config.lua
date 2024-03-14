@@ -1,8 +1,11 @@
 -- M lsp config
 local lspconfig = require'lspconfig'
 
-lspconfig.clangd.setup {}
-lspconfig.jedi_language_server.setup {}
+lspconfig.clangd.setup{}
+lspconfig.jedi_language_server.setup{}
+lspconfig.vimls.setup{}
+lspconfig.cmake.setup{}
+lspconfig.bashls.setup{}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

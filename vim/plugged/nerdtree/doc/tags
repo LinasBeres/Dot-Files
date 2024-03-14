@@ -20,6 +20,7 @@ NERDTree-C-K	NERDTree.txt	/*NERDTree-C-K*
 NERDTree-CD	NERDTree.txt	/*NERDTree-CD*
 NERDTree-D	NERDTree.txt	/*NERDTree-D*
 NERDTree-F	NERDTree.txt	/*NERDTree-F*
+NERDTree-FL	NERDTree.txt	/*NERDTree-FL*
 NERDTree-I	NERDTree.txt	/*NERDTree-I*
 NERDTree-J	NERDTree.txt	/*NERDTree-J*
 NERDTree-K	NERDTree.txt	/*NERDTree-K*
@@ -64,6 +65,7 @@ NERDTreeBookmarksFile	NERDTree.txt	/*NERDTreeBookmarksFile*
 NERDTreeBookmarksSort	NERDTree.txt	/*NERDTreeBookmarksSort*
 NERDTreeCascadeOpenSingleChildDir	NERDTree.txt	/*NERDTreeCascadeOpenSingleChildDir*
 NERDTreeCascadeSingleChildDir	NERDTree.txt	/*NERDTreeCascadeSingleChildDir*
+NERDTreeCaseSensitiveFS	NERDTree.txt	/*NERDTreeCaseSensitiveFS*
 NERDTreeCaseSensitiveSort	NERDTree.txt	/*NERDTreeCaseSensitiveSort*
 NERDTreeChDirMode	NERDTree.txt	/*NERDTreeChDirMode*
 NERDTreeCreatePrefix	NERDTree.txt	/*NERDTreeCreatePrefix*
@@ -105,6 +107,7 @@ NERDTreeMapQuit	NERDTree.txt	/*NERDTreeMapQuit*
 NERDTreeMapRefresh	NERDTree.txt	/*NERDTreeMapRefresh*
 NERDTreeMapRefreshRoot	NERDTree.txt	/*NERDTreeMapRefreshRoot*
 NERDTreeMapToggleBookmarks	NERDTree.txt	/*NERDTreeMapToggleBookmarks*
+NERDTreeMapToggleFileLines	NERDTree.txt	/*NERDTreeMapToggleFileLines*
 NERDTreeMapToggleFiles	NERDTree.txt	/*NERDTreeMapToggleFiles*
 NERDTreeMapToggleFilters	NERDTree.txt	/*NERDTreeMapToggleFilters*
 NERDTreeMapToggleHidden	NERDTree.txt	/*NERDTreeMapToggleHidden*
@@ -133,6 +136,7 @@ NERDTreeSettingsDetails	NERDTree.txt	/*NERDTreeSettingsDetails*
 NERDTreeSettingsSummary	NERDTree.txt	/*NERDTreeSettingsSummary*
 NERDTreeShowBookmarks	NERDTree.txt	/*NERDTreeShowBookmarks*
 NERDTreeShowFiles	NERDTree.txt	/*NERDTreeShowFiles*
+NERDTreeShowFilesLines	NERDTree.txt	/*NERDTreeShowFilesLines*
 NERDTreeShowHidden	NERDTree.txt	/*NERDTreeShowHidden*
 NERDTreeShowLineNumbers	NERDTree.txt	/*NERDTreeShowLineNumbers*
 NERDTreeSortOrder	NERDTree.txt	/*NERDTreeSortOrder*

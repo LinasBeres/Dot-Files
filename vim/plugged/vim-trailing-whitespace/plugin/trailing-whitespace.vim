@@ -9,13 +9,15 @@ function! ShouldMatchWhitespace()
     for ft in g:extra_whitespace_ignored_filetypes
         if ft ==# &filetype | return 0 | endif
     endfor
+    if &buftype ==# 'terminal' | return 0 | endif
     return 1
 endfunction
 
 " Highlight EOL whitespace, http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 highlight default ExtraWhitespace ctermbg=darkred guibg=darkred
 autocmd ColorScheme * highlight default ExtraWhitespace ctermbg=darkred guibg=darkred
-autocmd BufRead,BufNew * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | else | match ExtraWhitespace /^^/ | endif
+let term_open_event = (has('nvim') ? 'TermOpen' : 'TerminalOpen')
+exe 'autocmd BufRead,BufNew,FileType,' term_open_event '* if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | else | match ExtraWhitespace /^^/ | endif'
 
 " The above flashes annoyingly while typing, be calmer in insert mode
 autocmd InsertLeave * if ShouldMatchWhitespace() | match ExtraWhitespace /\\\@<![\u3000[:space:]]\+$/ | endif

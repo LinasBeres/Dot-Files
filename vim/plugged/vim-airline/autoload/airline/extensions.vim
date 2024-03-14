@@ -229,11 +229,17 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'undotree')
   endif
 
+  if exists(':RTM')
+    call airline#extensions#vimodoro#init(s:ext)
+    call add(s:loaded_ext, 'vimodoro')
+  endif
+
   if get(g:, 'airline#extensions#hunks#enabled', 1)
         \ && (exists('g:loaded_signify')
         \ || exists('g:loaded_gitgutter')
         \ || exists('g:loaded_changes')
         \ || exists('g:loaded_quickfixsigns')
+        \ || exists(':Gitsigns')
         \ || exists(':CocCommand'))
     call airline#extensions#hunks#init(s:ext)
     call add(s:loaded_ext, 'hunks')
@@ -414,6 +420,11 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'capslock')
   endif
 
+  if (get(g:, 'airline#extensions#codeium#enabled', 1) && get(g:, 'loaded_codeium', 0))
+    call airline#extensions#codeium#init(s:ext)
+    call add(s:loaded_ext, 'codeium')
+  endif
+
   if (get(g:, 'airline#extensions#gutentags#enabled', 1) && get(g:, 'loaded_gutentags', 0))
     call airline#extensions#gutentags#init(s:ext)
     call add(s:loaded_ext, 'gutentags')
@@ -429,7 +440,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'grepper')
   endif
 
-  if (get(g:, 'airline#extensions#xkblayout#enabled', 1) && exists('g:XkbSwitchLib'))
+  if get(g:, 'airline#extensions#xkblayout#enabled', 1) && (exists('g:XkbSwitchLib') || exists('*FcitxCurrentIM'))
     call airline#extensions#xkblayout#init(s:ext)
     call add(s:loaded_ext, 'xkblayout')
   endif
@@ -472,7 +483,7 @@ function! airline#extensions#load()
     call add(s:loaded_ext, 'battery')
   endif
 
-  if (get(g:, 'airline#extensions#vim9lsp#enabled', 1) && exists('*lsp#errorCount'))
+  if (get(g:, 'airline#extensions#vim9lsp#enabled', 1) && exists('*lsp#lsp#ErrorCount'))
     call airline#extensions#vim9lsp#init(s:ext)
     call add(s:loaded_ext, 'vim9lsp')
   endif
@@ -487,7 +498,7 @@ function! airline#extensions#load()
             \ && stridx(tolower(fnamemodify(file, ':p')), s:script_path) < 0
         let name = fnamemodify(file, ':t:r')
         if !get(g:, 'airline#extensions#'.name.'#enabled', 1) ||
-            \ index(s:loaded_ext, name) > -1
+            \ index(s:loaded_ext, name.'*') > -1
           continue
         endif
         try

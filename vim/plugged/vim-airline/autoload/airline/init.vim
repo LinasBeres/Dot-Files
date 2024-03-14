@@ -32,7 +32,7 @@ function! airline#init#bootstrap()
   call s:check_defined('g:airline_exclude_filetypes', [])
   call s:check_defined('g:airline_exclude_preview', 0)
 
-  " If g:airline_mode_map_codes is set to 1 in your .vimrc it will display 
+  " If g:airline_mode_map_codes is set to 1 in your .vimrc it will display
   " only the modes' codes in the status line. Refer :help mode() for codes.
   " That may be a preferred presentation because it is minimalistic.
   call s:check_defined('g:airline_mode_map_codes', 0)
@@ -45,7 +45,7 @@ function! airline#init#bootstrap()
     "    \ 'Rv' : 'VIRTUAL REPLACE',
     "    \ 'niV' : 'VIRTUAL REPLACE (NORMAL)',
     "    \ }
-    " ...would override 'Rv' and 'niV' below respectively.  
+    " ...would override 'Rv' and 'niV' below respectively.
     call extend(g:airline_mode_map, {
         \ '__' : '------',
         \ 'n' : 'NORMAL',
@@ -78,16 +78,16 @@ function! airline#init#bootstrap()
         \ '!'  : 'SHELL',
         \ 't'  : 'TERMINAL',
         \ 'multi' : 'MULTI',
-        \ }, 'keep')  
-        " NB: no*, cv, ce, r? and ! do not actually display 
+        \ }, 'keep')
+        " NB: no*, cv, ce, r? and ! do not actually display
   else
-    " Exception: The control character in ^S and ^V modes' codes 
-    " break the status line if allowed to render 'naturally' so 
+    " Exception: The control character in ^S and ^V modes' codes
+    " break the status line if allowed to render 'naturally' so
     " they are overridden with ^ (when g:airline_mode_map_codes = 1)
     call extend(g:airline_mode_map, {
         \ '' : '^V',
         \ '' : '^S',
-        \ }, 'keep')  
+        \ }, 'keep')
   endif
 
   call s:check_defined('g:airline_theme_map', {})
@@ -137,6 +137,7 @@ function! airline#init#bootstrap()
           \ 'dirty': "\u26a1",
           \ 'crypt': nr2char(0x1F512),
           \ }, 'keep')
+    "  Note: If "\u2046" (Ɇ) does not show up, try to use "\u2204" (∄)
   elseif &encoding==?'utf-8' && !get(g:, "airline_symbols_ascii", 0)
     " Symbols for Unicode terminals
     call s:check_defined('g:airline_left_sep', "")
@@ -233,6 +234,7 @@ function! airline#init#bootstrap()
 
   call airline#parts#define_text('bookmark', '')
   call airline#parts#define_text('capslock', '')
+  call airline#parts#define_text('codeium', '')
   call airline#parts#define_text('gutentags', '')
   call airline#parts#define_text('gen_tags', '')
   call airline#parts#define_text('grepper', '')
@@ -266,7 +268,7 @@ function! airline#init#sections()
     let g:airline_section_gutter = airline#section#create(['%='])
   endif
   if !exists('g:airline_section_x')
-    let g:airline_section_x = airline#section#create_right(['coc_current_function', 'bookmark', 'scrollbar', 'tagbar', 'taglist', 'vista', 'gutentags', 'gen_tags', 'omnisharp', 'grepper', 'filetype'])
+    let g:airline_section_x = airline#section#create_right(['coc_current_function', 'bookmark', 'scrollbar', 'tagbar', 'taglist', 'vista', 'gutentags', 'gen_tags', 'omnisharp', 'grepper', 'codeium', 'filetype'])
   endif
   if !exists('g:airline_section_y')
     let g:airline_section_y = airline#section#create_right(['ffenc'])

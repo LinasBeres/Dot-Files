@@ -18,6 +18,7 @@ airline-branch	airline.txt	/*airline-branch*
 airline-bufferline	airline.txt	/*airline-bufferline*
 airline-capslock	airline.txt	/*airline-capslock*
 airline-coc	airline.txt	/*airline-coc*
+airline-codeium	airline.txt	/*airline-codeium*
 airline-commands	airline.txt	/*airline-commands*
 airline-commandt	airline.txt	/*airline-commandt*
 airline-configuration	airline.txt	/*airline-configuration*
@@ -85,6 +86,7 @@ airline-unite	airline.txt	/*airline-unite*
 airline-vim9lsp	airline.txt	/*airline-vim9lsp*
 airline-vimagit	airline.txt	/*airline-vimagit*
 airline-vimcmake	airline.txt	/*airline-vimcmake*
+airline-vimodoro	airline.txt	/*airline-vimodoro*
 airline-vimtex	airline.txt	/*airline-vimtex*
 airline-virtualenv	airline.txt	/*airline-virtualenv*
 airline-vista	airline.txt	/*airline-vista*

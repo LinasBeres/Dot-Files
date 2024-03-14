@@ -7,35 +7,30 @@ set nocompatible
 " Vim-Plug {{{
 call plug#begin('~/.vim/plugged')
 
-" Plugins...
+" Colour themes
 Plug 'morhetz/gruvbox'
 Plug 'AlessandroYorba/Alduin'
 Plug 'AlessandroYorba/Arcadia'
 Plug 'NLKNguyen/papercolor-theme'
 
-Plug 'junegunn/goyo.vim' " Distraction Free editing
+" Nice looking stuff
+Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
-Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
-
-Plug 'sheerun/vim-polyglot'
-Plug 'plasticboy/vim-markdown'
 Plug 'lilydjwg/colorizer'
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'elzr/vim-json'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'pangloss/vim-javascript'
-Plug 'hdima/python-syntax'
-" Plug 'python-mode/python-mode', { 'branch': 'develop' }
-Plug 'dag/vim-fish'
+
+" Syntax highlighting
+Plug 'sheerun/vim-polyglot'
 Plug 'octol/vim-cpp-enhanced-highlight'
 
+" Vim wiki stuff
 Plug 'vimwiki/vimwiki'
 " Plug 'tbabej/taskwiki'
 Plug 'mattn/calendar-vim'
 
+" Misc
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -46,30 +41,42 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'ervandew/supertab'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/a.vim'
-Plug 'mileszs/ack.vim'
-Plug 'junegunn/fzf.vim'
 Plug 'wincent/terminus'
 Plug 'machakann/vim-highlightedyank'
 Plug 'kshenoy/vim-signature'
 " Plug 'yggdroot/indentline'
 Plug 'bogado/file-line'
+Plug 'voldikss/vim-floaterm'
+
+" nvim only stuff
 if has('nvim')
-	Plug 'edluffy/hologram.nvim'
-	Plug 'voldikss/vim-floaterm'
+	Plug 'edluffy/hologram.nvim' " <- View images in buffer
 	Plug 'neovim/nvim-lspconfig'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'petertriho/cmp-git'
+else
+    " in vim we are weak so let's just use supertab
+    Plug 'ervandew/supertab'
 endif
+
+" vsnip.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 " Language completion
 Plug 'liuchengxu/vista.vim'
 
-
+" fzf assuming that fzf is already installed - which it should be
 Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
 
 " End plugins
 call plug#end()
@@ -79,7 +86,7 @@ call plug#end()
 " GENERAL {{{
 
 " Syntax
-syntax on
+syntax enable
 filetype plugin on
 filetype indent on
 
@@ -141,8 +148,15 @@ nnoremap <leader><space> :noh<cr>
 set list
 set listchars=tab:▸\ ,eol:¬
 
+set updatetime=300
+
+set signcolumn=yes
+
 " Save on exit
 au FocusLost * :wa
+
+" explicit markers {{{ and }}}
+set foldmethod=marker
 
 " Set up vertical vs block cursor for insert/normal mode
 if $TERM == 'screen-256color'
@@ -153,13 +167,6 @@ else
 	let &t_EI.="\<Esc>[1 q"
 	let &t_te.="\<Esc>[0 q"
 endif
-
-" Terminal specific
-" if $TERM == "myterm-it" || $TERM == "st-256color" || $TERM == "xterm-256color"
-" set termguicolors
-" else
-" let g:gruvbox_termcolors=16
-" endif
 
 " }}}
 
@@ -181,7 +188,6 @@ nnoremap <C-A-k> <C-w>k
 nnoremap <C-A-h> <C-w>h
 nnoremap <C-A-l> <C-w>l
 " Note: you may want to change the lock screen combination to Mod4-L...
-
 
 " move splits up and down
 nnoremap <leader>J <C-w>x<C-w>j
@@ -217,6 +223,8 @@ vnoremap <A-c> NERDCommenterToggle()<CR>
 
 " Header jump
 nnoremap <A-a> :A<CR>
+" Switch between headers <- this works better for cpp files
+nnoremap <A-a> :ClangdSwitchSourceHeader<CR>
 
 " Tab jump
 nnoremap <Tab> :bnext<CR>
@@ -225,12 +233,10 @@ nnoremap <S-Tab> :bprevious<CR>
 " Open NERD
 nnoremap <A-n> :NERDTreeToggle<CR>
 
-" Search
-nnoremap <A-f> :Ack!
-
 " FZF
 nnoremap <A-k> :Files<CR>
 nnoremap <leader>k :Files<CR>
+nnoremap <A-r> :Rg!<CR>
 nnoremap <leader>r :Rg<CR>
 
 " Vista
@@ -242,66 +248,12 @@ noremap <silent> <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
 "}}}
 
 " LANGUAGE SERVER {{{
-nnoremap <A-a> :ClangdSwitchSourceHeader<CR>
 if has('nvim')
-
-lua << EOF
-	local nvim_lsp = require('lspconfig')
-
-	-- Use an on_attach function to only map the following keys
-	-- after the language server attaches to the current buffer
-	local on_attach = function(client, bufnr)
-	  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-	  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-	  -- Enable completion triggered by <c-x><c-o>
-	  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-	  -- Mappings.
-	  local opts = { noremap=true, silent=true }
-
-	  -- See `:help vim.lsp.*` for documentation on any of the below functions
-	  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-	  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-	  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-	  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-	  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-	  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-	  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-	  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-	  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-	  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-	  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-	  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-	  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-	  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-	  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-	  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-	end
-
-	require'lspconfig'.jedi_language_server.setup{}
-
-	-- Use a loop to conveniently call 'setup' on multiple servers and
-	-- map buffer local keybindings when the language server attaches
-	local servers = { 'clangd' }
-	for _, lsp in ipairs(servers) do
-	  nvim_lsp[lsp].setup {
-	    on_attach = on_attach,
-	    flags = {
-	      debounce_text_changes = 150,
-	    }
-	  }
-	end
-EOF
+    lua require('config')
+    lua require('lsp_config')
 endif
 
-
-
 " }}}
-
-set foldmethod=marker  " explicit markers {{{ and }}}
 
 "        PLUGIN CONFIG {{{
 " ===========================
@@ -339,49 +291,12 @@ let bibliographySummaries.index = 'summaries'
 
 let g:vimwiki_list = [bibliographySummaries]
 
-
 let g:jsx_ext_required = 0
 
 " Python3 syntax
 let g:pymode_python = 'python3'
 
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-
-" Floating windows...
-if has('nvim') && $TERM == 'screen-256color'
-	let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
-	let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
-	let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-	function! FloatingFZF()
-		let buf = nvim_create_buf(v:false, v:true)
-		call setbufvar(buf, '&signcolumn', 'no')
-
-		" Configuration
-		let height = float2nr((&lines - 2) * 0.6)
-		let row = float2nr((&lines - height) / 2)
-		let width = float2nr(&columns * 0.6)
-		let col = float2nr((&columns - width) / 2)
-
-		let opts = {
-					\ 'relative': 'editor',
-					\ 'row': row,
-					\ 'col': col,
-					\ 'width': width,
-					\ 'height': height,
-					\ 'style': 'minimal'
-					\ }
-
-		call nvim_open_win(buf, v:true, opts)
-	endfunction
-
-	nnoremap <silent> <C-o> :call fzf#vim#files('.', {'options': '--prompt ""'})<CR>
-	nnoremap <silent> <leader>b :Buffers<CR>
-endif
 
 set viminfo='100,n$HOME/.vim/files/info/viminfo
 

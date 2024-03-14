@@ -2,60 +2,19 @@ local util = require 'lspconfig.util'
 
 local function get_typescript_server_path(root_dir)
   local project_root = util.find_node_modules_ancestor(root_dir)
-  return project_root and (util.path.join(project_root, 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js'))
-    or ''
+  return project_root and (util.path.join(project_root, 'node_modules', 'typescript', 'lib')) or ''
 end
 
--- https://github.com/johnsoncodehk/volar/blob/master/packages/shared/src/types.ts
+-- https://github.com/johnsoncodehk/volar/blob/20d713b/packages/shared/src/types.ts
 local volar_init_options = {
   typescript = {
-    serverPath = '',
-  },
-  languageFeatures = {
-    implementation = true,
-    -- not supported - https://github.com/neovim/neovim/pull/14122
-    semanticTokens = false,
-    references = true,
-    definition = true,
-    typeDefinition = true,
-    callHierarchy = true,
-    hover = true,
-    rename = true,
-    renameFileRefactoring = true,
-    signatureHelp = true,
-    codeAction = true,
-    completion = {
-      defaultTagNameCase = 'both',
-      defaultAttrNameCase = 'kebabCase',
-    },
-    schemaRequestService = true,
-    documentHighlight = true,
-    documentLink = true,
-    codeLens = true,
-    diagnostics = true,
-  },
-  documentFeatures = {
-    -- not supported - https://github.com/neovim/neovim/pull/13654
-    documentColor = false,
-    selectionRange = true,
-    foldingRange = true,
-    linkedEditingRange = true,
-    documentSymbol = true,
-    documentFormatting = {
-      defaultPrintWidth = 100,
-    },
+    tsdk = '',
   },
 }
 
-local bin_name = 'vue-language-server'
-local cmd = { bin_name, '--stdio' }
-
-if vim.fn.has 'win32' == 1 then
-  cmd = { 'cmd.exe', '/C', bin_name, '--stdio' }
-end
 return {
   default_config = {
-    cmd = cmd,
+    cmd = { 'vue-language-server', '--stdio' },
     filetypes = { 'vue' },
     root_dir = util.root_pattern 'package.json',
     init_options = volar_init_options,
@@ -63,30 +22,35 @@ return {
       if
         new_config.init_options
         and new_config.init_options.typescript
-        and new_config.init_options.typescript.serverPath == ''
+        and new_config.init_options.typescript.tsdk == ''
       then
-        new_config.init_options.typescript.serverPath = get_typescript_server_path(new_root_dir)
+        new_config.init_options.typescript.tsdk = get_typescript_server_path(new_root_dir)
       end
     end,
   },
   docs = {
     description = [[
-https://github.com/johnsoncodehk/volar/tree/master/packages/vue-language-server
+https://github.com/johnsoncodehk/volar/tree/20d713b/packages/vue-language-server
 
 Volar language server for Vue
 
 Volar can be installed via npm:
 
 ```sh
-npm install -g @volar/vue-language-server
+npm install -g @vue/language-server
 ```
 
 Volar by default supports Vue 3 projects. Vue 2 projects need
-[additional configuration](https://github.com/johnsoncodehk/volar/blob/master/extensions/vscode-vue-language-features/README.md?plain=1#L28-L63).
+[additional configuration](https://github.com/vuejs/language-tools/tree/master/packages/vscode-vue#usage).
+
+**TypeScript support**
+As of release 2.0.0, Volar no longer wraps around tsserver. For typescript
+support, `tsserver` needs to be configured with the `@vue/typescript-plugin`
+plugin.
 
 **Take Over Mode**
 
-Volar can serve as a language server for both Vue and TypeScript via [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471).
+Volar (prior to 2.0.0), can serve as a language server for both Vue and TypeScript via [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471).
 
 To enable Take Over Mode, override the default filetypes in `setup{}` as follows:
 
@@ -107,9 +71,9 @@ e.g. when working on a [monorepo](https://monorepo.tools/). The alternatives are
 require'lspconfig'.volar.setup{
   init_options = {
     typescript = {
-      serverPath = '/path/to/.npm/lib/node_modules/typescript/lib/tsserverlib.js'
+      tsdk = '/path/to/.npm/lib/node_modules/typescript/lib'
       -- Alternative location if installed as root:
-      -- serverPath = '/usr/local/lib/node_modules/typescript/lib/tsserverlibrary.js'
+      -- tsdk = '/usr/local/lib/node_modules/typescript/lib'
     }
   }
 }
@@ -121,12 +85,12 @@ require'lspconfig'.volar.setup{
 local util = require 'lspconfig.util'
 local function get_typescript_server_path(root_dir)
 
-  local global_ts = '/home/[yourusernamehere]/.npm/lib/node_modules/typescript/lib/tsserverlibrary.js'
+  local global_ts = '/home/[yourusernamehere]/.npm/lib/node_modules/typescript/lib'
   -- Alternative location if installed as root:
-  -- local global_ts = '/usr/local/lib/node_modules/typescript/lib/tsserverlibrary.js'
+  -- local global_ts = '/usr/local/lib/node_modules/typescript/lib'
   local found_ts = ''
   local function check_dir(path)
-    found_ts =  util.path.join(path, 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js')
+    found_ts =  util.path.join(path, 'node_modules', 'typescript', 'lib')
     if util.path.exists(found_ts) then
       return path
     end
@@ -140,7 +104,7 @@ end
 
 require'lspconfig'.volar.setup{
   on_new_config = function(new_config, new_root_dir)
-    new_config.init_options.typescript.serverPath = get_typescript_server_path(new_root_dir)
+    new_config.init_options.typescript.tsdk = get_typescript_server_path(new_root_dir)
   end,
 }
 ```

@@ -1,15 +1,8 @@
 local util = require 'lspconfig.util'
 
-local bin_name = 'grammarly-languageserver'
-local cmd = { bin_name, '--stdio' }
-
-if vim.fn.has 'win32' == 1 then
-  cmd = { 'cmd.exe', '/C', bin_name, '--stdio' }
-end
-
 return {
   default_config = {
-    cmd = cmd,
+    cmd = { 'grammarly-languageserver', '--stdio' },
     filetypes = { 'markdown' },
     root_dir = util.find_git_ancestor,
     single_file_support = true,
@@ -17,6 +10,9 @@ return {
       ['$/updateDocumentState'] = function()
         return ''
       end,
+    },
+    init_options = {
+      clientId = 'client_BaDkMgx4X19X9UxxYRCXZo',
     },
   },
   docs = {

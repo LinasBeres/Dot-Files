@@ -37,6 +37,7 @@ g:floaterm_position	floaterm.txt	/*g:floaterm_position*
 g:floaterm_rootmarkers	floaterm.txt	/*g:floaterm_rootmarkers*
 g:floaterm_shell	floaterm.txt	/*g:floaterm_shell*
 g:floaterm_title	floaterm.txt	/*g:floaterm_title*
+g:floaterm_titleposition	floaterm.txt	/*g:floaterm_titleposition*
 g:floaterm_width	floaterm.txt	/*g:floaterm_width*
 g:floaterm_wintype	floaterm.txt	/*g:floaterm_wintype*
 leaderf-floaterm	floaterm.txt	/*leaderf-floaterm*

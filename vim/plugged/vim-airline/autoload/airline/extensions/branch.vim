@@ -17,8 +17,8 @@ scriptencoding utf-8
 let s:vcs_config = {
 \  'git': {
 \    'exe': 'git',
-\    'cmd': 'git status --porcelain -- ',
-\    'dirty': 'git status -uno --porcelain --ignore-submodules',
+\    'cmd': 'git --no-optional-locks status --porcelain -- ',
+\    'dirty': 'git --no-optional-locks status -uno --porcelain --ignore-submodules',
 \    'untracked_mark': '??',
 \    'exclude': '\.git',
 \    'update_branch': 's:update_git_branch',

@@ -53,7 +53,9 @@ endfunction
 " }}}
 
 function! airline#parts#mode()
-  return airline#util#shorten(get(w:, 'airline_current_mode', ''), 79, 1)
+  let part = airline#parts#get('mode')
+  let minwidth = get(part, 'minwidth', 79)
+  return airline#util#shorten(get(w:, 'airline_current_mode', ''), minwidth, 1)
 endfunction
 
 function! airline#parts#crypt()
@@ -189,7 +191,7 @@ endfunction
 
 function! airline#parts#filetype()
   return (airline#util#winwidth() < 90 && strlen(&filetype) > 3)
-        \ ? matchstr(&filetype, '...'). (&encoding is? 'utf-8' ? '…' : '>')
+        \ ? matchstr(&filetype, '...'). (&encoding is? 'utf-8' ? "\u2026" : '>')
         \ : &filetype
 endfunction
 

@@ -4,19 +4,23 @@
 
 # PATH
 if not string match -q -- "$HOME/bin" $PATH
-    set -Ux PATH $PATH $HOME/bin
+    set -gx PATH $PATH $HOME/bin
 end
 
 if not string match -q -- "$HOME/.local/bin" $PATH
-    set -Ux PATH $PATH $HOME/.local/bin
+    set -gx PATH $PATH $HOME/.local/bin
 end
 
 if not string match -q -- "$HOME/.cargo/bin" $PATH
-    set -Ux PATH $PATH $HOME/.cargo/bin
+    set -gx PATH $PATH $HOME/.cargo/bin
 end
 
 if not string match -q -- "$HOME/.fzf/bin" $PATH
-    set -Ux PATH $PATH "$HOME/.fzf/bin"
+    set -gx PATH $PATH "$HOME/.fzf/bin"
+end
+
+if not string match -q -- "$HOME/dev/lua-language-server/bin" $PATH
+    set -gx PATH $PATH "$HOME/dev/lua-language-server/bin"
 end
 
 # Editor

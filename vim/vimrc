@@ -24,6 +24,7 @@ Plug 'lilydjwg/colorizer'
 " Syntax highlighting
 Plug 'sheerun/vim-polyglot'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'evanleck/vim-svelte'
 
 " Vim wiki stuff
 Plug 'vimwiki/vimwiki'
@@ -54,14 +55,17 @@ Plug 'voldikss/vim-floaterm'
 
 " nvim only stuff
 if has('nvim')
-	Plug 'edluffy/hologram.nvim' " <- View images in buffer
-	Plug 'neovim/nvim-lspconfig'
+    " Plug 'edluffy/hologram.nvim' " <- View images in buffer
+    Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'petertriho/cmp-git'
+    Plug 'onsails/lspkind.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'pmizio/typescript-tools.nvim'
 else
     " in vim we are weak so let's just use supertab
     Plug 'ervandew/supertab'
@@ -160,12 +164,12 @@ set foldmethod=marker
 
 " Set up vertical vs block cursor for insert/normal mode
 if $TERM == 'screen-256color'
-	echo "TERM IS TMUX"
+    echo "TERM IS TMUX"
 else
-	let &t_ti.="\<Esc>[1 q"
-	let &t_SI.="\<Esc>[5 q"
-	let &t_EI.="\<Esc>[1 q"
-	let &t_te.="\<Esc>[0 q"
+    let &t_ti.="\<Esc>[1 q"
+    let &t_SI.="\<Esc>[5 q"
+    let &t_EI.="\<Esc>[1 q"
+    let &t_te.="\<Esc>[0 q"
 endif
 
 " }}}
@@ -299,5 +303,7 @@ let g:pymode_python = 'python3'
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 set viminfo='100,n$HOME/.vim/files/info/viminfo
+
+let g:svelte_preprocessors = ['typescript']
 
 "}}}

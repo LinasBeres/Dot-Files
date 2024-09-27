@@ -53,7 +53,8 @@ function! s:bash()
 
   let custom_bash = s:conf('preview_bash', '')
   let git_bash = 'C:\Program Files\Git\bin\bash.exe'
-  let candidates = filter(s:is_win ? [custom_bash, 'bash', git_bash] : [custom_bash, 'bash'], 'len(v:val)')
+  let scoop_git_bash = exists('$GIT_INSTALL_ROOT') ? $GIT_INSTALL_ROOT . '\bin\bash.exe' : ''
+  let candidates = filter(s:is_win ? [custom_bash, git_bash, scoop_git_bash, 'bash'] : [custom_bash, 'bash'], 'len(v:val)')
 
   let found = filter(map(copy(candidates), 'exepath(v:val)'), 'len(v:val)')
   if empty(found)
@@ -834,7 +835,11 @@ endfunction
 " ------------------------------------------------------------------
 function! s:ag_to_qf(line)
   let parts = matchlist(a:line, '\(.\{-}\)\s*:\s*\(\d\+\)\%(\s*:\s*\(\d\+\)\)\?\%(\s*:\(.*\)\)\?')
-  let dict = {'filename': &acd ? fnamemodify(parts[1], ':p') : parts[1], 'lnum': parts[2], 'text': parts[4]}
+  let file = &acd ? fnamemodify(parts[1], ':p') : parts[1]
+  if has('win32unix') && file !~ '/'
+    let file = substitute(file, '\', '/', 'g')
+  endif
+  let dict = {'filename': file, 'lnum': parts[2], 'text': parts[4]}
   if len(parts[3])
     let dict.col = parts[3]
   endif
@@ -936,12 +941,13 @@ function! fzf#vim#grep2(command_prefix, query, ...)
   endfor
   let words = empty(words) ? ['grep'] : words
   let name = join(words, '-')
+  let fallback = s:is_win ? '' : ' || :'
   let opts = {
-  \ 'source': ':',
+  \ 'source': s:is_win ? 'cd .' : ':',
   \ 'options': ['--ansi', '--prompt', toupper(name).'> ', '--query', a:query,
   \             '--disabled',
   \             '--bind', 'start:reload:'.a:command_prefix.' '.fzf#shellescape(a:query),
-  \             '--bind', 'change:reload:'.a:command_prefix.' {q} || :',
+  \             '--bind', 'change:reload:'.a:command_prefix.' {q}'.fallback,
   \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
   \             '--delimiter', ':', '--preview-window', '+{2}-/2']
   \}
@@ -1029,7 +1035,7 @@ function! s:tags_sink(lines)
   endif
 
   " Remember the current position
-  let buf = bufnr()
+  let buf = bufnr('')
   let view = winsaveview()
 
   let qfl = []
@@ -1082,6 +1088,10 @@ function! fzf#vim#tags(query, ...)
   if !executable('perl')
     return s:warn('Tags command requires perl')
   endif
+  if len(a:query) && !executable('readtags')
+    return s:warn('readtags from universal-ctags is required to pre-filter tags with a prefix')
+  endif
+
   if empty(tagfiles())
     call inputsave()
     echohl WarningMsg
@@ -1144,18 +1154,18 @@ endfunction
 " ------------------------------------------------------------------
 " Commands
 " ------------------------------------------------------------------
-let s:nbs = nr2char(0xa0)
+let s:tab = "\t"
 
 function! s:format_cmd(line)
   return substitute(a:line, '\C \([A-Z]\S*\) ',
-        \ '\=s:nbs.s:yellow(submatch(1), "Function").s:nbs', '')
+        \ '\=s:tab.s:yellow(submatch(1), "Function").s:tab', '')
 endfunction
 
 function! s:command_sink(lines)
   if len(a:lines) < 2
     return
   endif
-  let cmd = matchstr(a:lines[1], s:nbs.'\zs\S*\ze'.s:nbs)
+  let cmd = matchstr(a:lines[1], s:tab.'\zs\S*\ze'.s:tab)
   if empty(a:lines[0])
     call feedkeys(':'.cmd.(a:lines[1][0] == '!' ? '' : ' '), 'n')
   else
@@ -1167,7 +1177,7 @@ let s:fmt_excmd = '   '.s:blue('%-38s', 'Statement').'%s'
 
 function! s:format_excmd(ex)
   let match = matchlist(a:ex, '^|:\(\S\+\)|\s*\S*\(.*\)')
-  return printf(s:fmt_excmd, s:nbs.match[1].s:nbs, s:strip(match[2]))
+  return printf(s:fmt_excmd, s:tab.match[1].s:tab, s:strip(match[2]))
 endfunction
 
 function! s:excmds()
@@ -1205,7 +1215,7 @@ function! fzf#vim#commands(...)
   \ 'source':  extend(extend(list[0:0], map(list[1:], 's:format_cmd(v:val)')), s:excmds()),
   \ 'sink*':   s:function('s:command_sink'),
   \ 'options': '--ansi --expect '.s:conf('commands_expect', 'ctrl-x').
-  \            ' --tiebreak=index --header-lines 1 -x --prompt "Commands> " -n2,3,2..3 -d'.s:nbs}, a:000)
+  \            ' --tiebreak=index --header-lines 1 -x --prompt "Commands> " -n2,3,2..3 --tabstop=1 -d "\t"'}, a:000)
 endfunction
 
 " ------------------------------------------------------------------
@@ -1213,7 +1223,11 @@ endfunction
 " ------------------------------------------------------------------
 
 function! s:format_change(bufnr, offset, item)
-  return printf("%3d  %s  %4d  %3d  %s", a:bufnr, s:yellow(printf('%6s', a:offset)), a:item.lnum, a:item.col, getbufline(a:bufnr, a:item.lnum)[0])
+  let buflines = getbufline(a:bufnr, a:item.lnum)
+  if empty(buflines)
+    return ''
+  endif
+  return printf("%3d  %s  %4d  %3d  %s", a:bufnr, s:yellow(printf('%6s', a:offset)), a:item.lnum, a:item.col, buflines[0])
 endfunction
 
 function! s:changes_sink(lines)
@@ -1251,11 +1265,11 @@ function! fzf#vim#changes(...)
   let cursor = 0
   for bufnr in fzf#vim#_buflisted_sorted()
     let [changes, position_or_length] = getchangelist(bufnr)
-    let current = bufnr() == bufnr
+    let current = bufnr('') == bufnr
     if current
       let cursor = len(changes) - position_or_length
     endif
-    let all_changes += map(reverse(changes), { idx, val -> s:format_change(bufnr, s:format_change_offset(current, idx, cursor), val) })
+    let all_changes += filter(map(reverse(changes), { idx, val -> s:format_change(bufnr, s:format_change_offset(current, idx, cursor), val) }), '!empty(v:val)')
   endfor
 
   return s:fzf('changes', {
@@ -1377,9 +1391,9 @@ endfunction
 function! s:format_win(tab, win, buf)
   let modified = getbufvar(a:buf, '&modified')
   let name = bufname(a:buf)
-  let name = empty(name) ? s:nbs.s:nbs.'[No Name]' : ' '.s:nbs.name
+  let name = empty(name) ? s:tab.s:tab.'[No Name]' : ' '.s:tab.name
   let active = tabpagewinnr(a:tab) == a:win
-  return (active? s:blue('>', 'Operator') : ' ') . name . s:nbs . (modified? s:red(' [+]', 'Exception') : '')
+  return (active? s:blue('>', 'Operator') : ' ') . name . s:tab . (modified? s:red(' [+]', 'Exception') : '')
 endfunction
 
 function! s:windows_sink(line)
@@ -1402,7 +1416,7 @@ function! fzf#vim#windows(...)
   return s:fzf('windows', {
   \ 'source':  extend(['Tab Win     Name'], lines),
   \ 'sink':    s:function('s:windows_sink'),
-  \ 'options': '+m --ansi --tiebreak=begin --header-lines=1 -d'.s:nbs}, a:000)
+  \ 'options': '+m --ansi --tiebreak=begin --header-lines=1 --tabstop=1 -d "\t"'}, a:000)
 endfunction
 
 " ------------------------------------------------------------------
@@ -1465,14 +1479,22 @@ function! s:commits(range, buffer_local, args)
 
   let args = copy(a:args)
   let log_opts = len(args) && type(args[0]) == type('') ? remove(args, 0) : ''
+  let with_preview = !s:is_win && &columns > s:wide
 
   if len(a:range) || a:buffer_local
     if !managed
       return s:warn('The current buffer is not in the working tree')
     endif
-    let source .= len(a:range)
-      \ ? join([printf(' -L %d,%d:%s --no-patch', a:range[0], a:range[1], fzf#shellescape(current)), log_opts])
-      \ : join([' --follow', log_opts, fzf#shellescape(current)])
+    if len(a:range)
+      let source .= join([printf(' -L %d,%d:%s --no-patch', a:range[0], a:range[1], fzf#shellescape(current)), log_opts])
+      if with_preview
+        let previewparams = join([printf('log -L %d,%d:%s', a:range[0], a:range[1], fzf#shellescape(current)), log_opts])
+        let previewfilter = " | awk '/commit {1}/ {flag=1;print;next} /^[^ ]*commit/{flag=0} flag' "
+        let previewcmd = prefix . previewparams .' --color=always '. previewfilter
+      endif
+    else
+      let source .= join([' --follow', log_opts, fzf#shellescape(current)])
+    endif
     let command = 'BCommits'
   else
     let source .= join([' --graph', log_opts])
@@ -1494,12 +1516,14 @@ function! s:commits(range, buffer_local, args)
     let options.options[-1] .= ',ctrl-d'
   endif
 
-  if !s:is_win && &columns > s:wide
+  if with_preview
+    if !len(a:range)
+      let orderfile = tempname()
+      call writefile([current[len(s:git_root)+1:]], orderfile)
+      let previewcmd = 'echo {} | grep -o "[a-f0-9]\{7,\}" | head -1 | xargs ' . prefix . 'show -O'.fzf#shellescape(orderfile).' --format=format: --color=always '
+    endif
     let suffix = executable('delta') ? '| delta --width $FZF_PREVIEW_COLUMNS' : ''
-    let orderfile = tempname()
-    call writefile([current[len(s:git_root)+1:]], orderfile)
-    call extend(options.options,
-    \ ['--preview', 'echo {} | grep -o "[a-f0-9]\{7,\}" | head -1 | xargs ' . prefix . 'show -O'.fzf#shellescape(orderfile).' --format=format: --color=always ' . suffix])
+    call extend(options.options, ['--preview', previewcmd . suffix])
   endif
 
   return s:fzf(a:buffer_local ? 'bcommits' : 'commits', options, args)

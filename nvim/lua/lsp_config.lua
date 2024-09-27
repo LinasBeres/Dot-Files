@@ -142,6 +142,10 @@ lspconfig['lua_ls'].setup {
     }
 }
 
+lspconfig['clangd'].setup {
+    filetypes = { "c", "cpp", "h", "hpp", "cppm" }
+}
+
 require("typescript-tools").setup {
     capabilities = capabilities
 }

@@ -306,4 +306,7 @@ set viminfo='100,n$HOME/.vim/files/info/viminfo
 
 let g:svelte_preprocessors = ['typescript']
 
+autocmd BufReadPost,BufNewFile *.cppm set syntax=cpp
+autocmd BufReadPost,BufNewFile *.cppm set filetype=cpp
+
 "}}}

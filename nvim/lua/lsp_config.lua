@@ -110,29 +110,11 @@ cmp.setup.cmdline(':', {
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local lspconfig = require('lspconfig')
-local langauge_servers = {
-    'clangd',
-    'jedi_language_server',
-    'vimls',
-    'cmake',
-    'bashls',
-    'lua_ls',
-    'svelte',
-    -- 'ltex'
-    -- 'html',
-    'stimulus_ls',
-    'css_variables',
-    'jsonls'
-}
+vim.lsp.config('*', {
+    capabilities = capabilities,
+})
 
-for _, server in ipairs(langauge_servers) do
-    lspconfig[server].setup {
-        capabilities = capabilities
-    }
-end
-
-lspconfig['lua_ls'].setup {
+vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
@@ -140,11 +122,27 @@ lspconfig['lua_ls'].setup {
             }
         }
     }
+})
+
+vim.lsp.config('clangd', {
+    filetypes = { "c", "cpp", "h", "hpp", "cppm" }
+})
+
+local language_servers = {
+    'clangd',
+    'jedi_language_server',
+    'vimls',
+    'cmake',
+    'bashls',
+    'lua_ls',
+    'svelte',
+    'stimulus_ls',
+    'css_variables',
+    'jsonls'
 }
 
-lspconfig['clangd'].setup {
-    filetypes = { "c", "cpp", "h", "hpp", "cppm" }
-}
+-- This replaces the loop + .setup() calls
+vim.lsp.enable(language_servers)
 
 require("typescript-tools").setup {
     capabilities = capabilities

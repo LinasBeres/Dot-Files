@@ -81,6 +81,7 @@ Plug 'liuchengxu/vista.vim'
 " fzf assuming that fzf is already installed - which it should be
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
 
 " End plugins
 call plug#end()
@@ -116,7 +117,7 @@ set softtabstop=4
 " set smarttab
 
 " For Python
-autocmd FileType python setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
+" autocmd FileType python setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 
 " General improvments
 set encoding=UTF-8

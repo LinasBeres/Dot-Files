@@ -30,3 +30,9 @@
     pullall = "!f(){ git pull \"$@\" && git submodule update --init --recursive; }; f"
 [core]
     excludesFile = ~/.gitignore
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a light terminal theme

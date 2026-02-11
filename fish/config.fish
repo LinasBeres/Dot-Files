@@ -51,21 +51,7 @@ function bdown
   end
 end
 
-# Git prompt
-# 1. Enable the "informative" status (adds checkmarks, arrows, etc.)
-set -g __fish_git_prompt_show_informative_status 1
-
-# 2. Enable colors based on the git state (dirty=red, clean=green, etc.)
-set -g __fish_git_prompt_showcolorhints 1
-
-# 3. Show how you compare to the upstream (remote) branch
-# This adds the arrows (↑ ahead, ↓ behind, <> diverged)
-set -g __fish_git_prompt_showupstream "auto"
-
-# Optional: Adding specific symbols if you want to customize the look
-set -g __fish_git_prompt_char_upstream_ahead "↑"
-set -g __fish_git_prompt_char_upstream_behind "↓"
-set -g __fish_git_prompt_char_upstream_diverged "≠"
+direnv hook fish | source
 
 # Prompt source
 source $HOME/.config/fish/prompt.fish
@@ -75,3 +61,6 @@ source $HOME/.config/fish/globals.fish
 
 # Alias source
 source $HOME/.config/fish/alias.fish
+
+zoxide init fish | source
+

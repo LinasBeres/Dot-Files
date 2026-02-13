@@ -41,6 +41,7 @@ else if type -q ag
 else
     set -Ux FZF_DEFAULT_COMMAND grep --files --hidden --smart-case --glob "!.git/*"A
 end
+set -gx FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border'
 
 # Git prompt
 # Enable the "informative" status (adds checkmarks, arrows, etc.)

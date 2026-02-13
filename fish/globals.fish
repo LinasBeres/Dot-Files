@@ -42,6 +42,19 @@ else
     set -Ux FZF_DEFAULT_COMMAND grep --files --hidden --smart-case --glob "!.git/*"A
 end
 
-# fish git
-set -Ux __fish_git_prompt_show_informative_status
-set -Ux __fish_git_prompt_showcolorhints
+# Git prompt
+# Enable the "informative" status (adds checkmarks, arrows, etc.)
+set -g __fish_git_prompt_show_informative_status 1
+
+# Enable colors based on the git state (dirty=red, clean=green, etc.)
+set -g __fish_git_prompt_showcolorhints 1
+
+# This adds the arrows (↑ ahead, ↓ behind, <> diverged)
+set -g __fish_git_prompt_showupstream "auto"
+
+set -g __fish_git_prompt_char_upstream_ahead "↑"
+set -g __fish_git_prompt_char_upstream_behind "↓"
+set -g __fish_git_prompt_char_upstream_diverged "≠"
+
+# For Done
+set -U __done_notification_command 'osascript -e "display notification \"$message\" with title \"$title\""'

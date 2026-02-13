@@ -9,7 +9,7 @@ function fish_prompt
     echo -n (set_color -o red)$REZ_ENV_PROMPT' '
 
     # username@hostname
-    if [ (whoami) != "linasberesna" ]
+    if [ (whoami) != "lberesna" ]
         echo -n (set_color -o grey)'|'(set_color -o yellow)(whoami)(set_color -o red)@(set_color -o yellow)(hostname -s)(set_color -o grey)'|'
     end
 

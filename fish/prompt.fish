@@ -5,6 +5,11 @@
 function fish_prompt
     set last_status $status
 
+    # SSH check
+    if set -q SSH_TTY
+        echo -n (set_color magenta)'󰖟 '
+    end
+
     # rez env amount
     echo -n (set_color -o red)$REZ_ENV_PROMPT' '
 

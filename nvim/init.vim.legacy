@@ -1,0 +1,313 @@
+" #--------------------------------------------------# "
+" #------------- NVIM CONFIG FILE -------------------# "
+" #--------------------------------------------------# "
+
+set nocompatible
+
+" Vim-Plug {{{
+call plug#begin('~/.vim/plugged')
+
+" Colour themes
+Plug 'morhetz/gruvbox'
+Plug 'AlessandroYorba/Alduin'
+Plug 'AlessandroYorba/Arcadia'
+Plug 'NLKNguyen/papercolor-theme'
+
+" Nice looking stuff
+Plug 'junegunn/goyo.vim'
+Plug 'mhinz/vim-startify'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+Plug 'lilydjwg/colorizer'
+
+" Syntax highlighting
+Plug 'sheerun/vim-polyglot'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'evanleck/vim-svelte'
+
+" Vim wiki stuff
+Plug 'vimwiki/vimwiki'
+" Plug 'tbabej/taskwiki'
+Plug 'mattn/calendar-vim'
+
+" Misc
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tmhedberg/matchit'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'jszakmeister/vim-togglecursor'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'kien/ctrlp.vim'
+Plug 'vim-scripts/a.vim'
+Plug 'wincent/terminus'
+Plug 'machakann/vim-highlightedyank'
+Plug 'kshenoy/vim-signature'
+" Plug 'yggdroot/indentline'
+Plug 'bogado/file-line'
+Plug 'voldikss/vim-floaterm'
+
+" nvim only stuff
+if has('nvim')
+    " Plug 'edluffy/hologram.nvim' " <- View images in buffer
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'petertriho/cmp-git'
+    Plug 'onsails/lspkind.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'pmizio/typescript-tools.nvim'
+else
+    " in vim we are weak so let's just use supertab
+    Plug 'ervandew/supertab'
+endif
+
+" vsnip.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
+" Language completion
+Plug 'liuchengxu/vista.vim'
+
+" fzf assuming that fzf is already installed - which it should be
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+
+" End plugins
+call plug#end()
+
+" }}}
+
+" GENERAL {{{
+
+" Syntax
+syntax enable
+filetype plugin on
+filetype indent on
+
+" Line numbers
+set number
+set numberwidth=3
+
+" Use Clipboard
+set clipboard=unnamedplus
+
+" Mouse scrolling on
+set mouse=a
+
+" Cursor shape and stuff
+let g:togglecursor_leave = "underline"
+
+" Tab/spaces spacing
+" set noexpandtab " <- Use Tabs
+set expandtab " <- Use spaces
+set tabstop=4
+set shiftwidth=0
+set softtabstop=4
+" set smarttab
+
+" For Python
+" autocmd FileType python setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
+
+" General improvments
+set encoding=UTF-8
+set scrolloff=3
+set autoindent
+set showmode
+set showcmd
+set hidden
+set wildmenu
+set wildmode=list:longest
+set visualbell
+set cursorline
+set ttyfast
+set ruler
+set backspace=indent,eol,start
+set laststatus=2
+set undofile
+
+" Searching
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader><space> :noh<cr>
+" nnoremap <Tab> %
+" vnoremap <Tab> %
+
+" Extra symbols
+set list
+set listchars=tab:▸\ ,eol:¬
+
+set updatetime=300
+
+set signcolumn=yes
+
+" Save on exit
+au FocusLost * :wa
+
+" explicit markers {{{ and }}}
+set foldmethod=marker
+
+" Set up vertical vs block cursor for insert/normal mode
+if $TERM == 'screen-256color'
+    echo "TERM IS TMUX"
+else
+    let &t_ti.="\<Esc>[1 q"
+    let &t_SI.="\<Esc>[5 q"
+    let &t_EI.="\<Esc>[1 q"
+    let &t_te.="\<Esc>[0 q"
+endif
+
+" }}}
+
+"        KEYBINDINGS {{{
+" ========================== leader in coma
+let mapleader = ";"
+" but keep the old one too
+nmap \ ;
+
+" move around the splits with ;j etc.
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>h <C-w>h
+nnoremap <leader>l <C-w>l
+
+" move around the splits with Ctrl+Alt+j etc.
+nnoremap <C-A-j> <C-w>j
+nnoremap <C-A-k> <C-w>k
+nnoremap <C-A-h> <C-w>h
+nnoremap <C-A-l> <C-w>l
+" Note: you may want to change the lock screen combination to Mod4-L...
+
+" move splits up and down
+nnoremap <leader>J <C-w>x<C-w>j
+nnoremap <leader>K <C-w>k<C-w>x
+
+" open new splits and move there
+nnoremap <leader>v <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s<C-w>l
+
+" no ex mode (type visual to go back to sanity)
+nnoremap Q <Nop>
+
+" Auto opening
+inoremap (; (<CR>);<C-c>O
+inoremap (, (<CR>),<C-c>O
+inoremap {; {<CR>};<C-c>O
+inoremap {, {<CR>},<C-c>O
+inoremap [; [<CR>];<C-c>O
+inoremap [, [<CR>],<C-c>O
+
+" Avoid the escape key
+inoremap jj <Esc>
+imap <A-e> <Esc>
+vmap <A-e> <Esc>
+smap <A-e> <Esc>
+
+" EZ Save
+nnoremap <A-s> :w<CR>
+
+" Comment quick
+nnoremap <A-c> NERDCommenterToggle()<CR>
+vnoremap <A-c> NERDCommenterToggle()<CR>
+
+" Header jump
+nnoremap <A-a> :A<CR>
+" Switch between headers <- this works better for cpp files
+nnoremap <A-a> :ClangdSwitchSourceHeader<CR>
+
+" Tab jump
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+
+" Open NERD
+nnoremap <A-n> :NERDTreeToggle<CR>
+
+" FZF
+nnoremap <A-k> :Files<CR>
+nnoremap <leader>k :Files<CR>
+nnoremap <A-r> :Rg!<CR>
+nnoremap <leader>r :Rg<CR>
+
+" Vista
+nnoremap <leader>v :Vista!!<CR>
+
+" Close buffers
+noremap <silent> <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
+
+"}}}
+
+" NVIM LUA CONFIGS {{{
+if has('nvim')
+    lua require('config')
+    lua require('lsp_config')
+endif
+
+" }}}
+
+"        PLUGIN CONFIG {{{
+" ===========================
+
+" Colour scheme
+let g:alduin_Contract_Vampirism = 1
+colorscheme alduin
+let g:gruvbox_italic=1
+let g:arcadia_Daybreak = 1
+" highlight Comment cterm=italic
+highlight Folded ctermfg=8 ctermbg=233 guifg=#5f0000 guibg=#121212
+
+" Airline Stuff
+let g:airline#extensions#tabline#enabled = 1
+
+" Nerd Tree
+map <Leader>n :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Nerd Commenter
+let g:NERDSpaceDelims = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDCommentEmptyLines = 1
+
+" Goyo config
+map <C-g> :Goyo<CR>
+
+" Vim wiki
+map <Leader>wt <Plug>VimwikiNextLink
+map <Leader>wrt <Plug>VimwikiPrevLink
+
+let bibliographySummaries = {}
+let bibliographySummaries.path = '$HOME/Bibliography/summaries'
+let bibliographySummaries.index = 'summaries'
+
+let g:vimwiki_list = [bibliographySummaries]
+
+let g:jsx_ext_required = 0
+
+" Python3 syntax
+let g:pymode_python = 'python3'
+
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+set viminfo='100,n$HOME/.vim/files/info/viminfo
+
+let g:svelte_preprocessors = ['typescript']
+
+autocmd BufReadPost,BufNewFile *.cppm set syntax=cpp
+autocmd BufReadPost,BufNewFile *.cppm set filetype=cpp
+
+"}}}

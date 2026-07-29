@@ -125,7 +125,11 @@ vim.lsp.config('lua_ls', {
 })
 
 vim.lsp.config('clangd', {
-    filetypes = { "c", "cpp", "h", "hpp", "cppm" }
+    filetypes = { "c", "cpp", "h", "hpp", "cppm" },
+    cmd = {
+        "clangd",
+        "--query-driver=/usr/bin/c++,/usr/bin/x86_64-linux-gnu-g++-13,/usr/bin/g++*,/usr/bin/gcc*",
+    }
 })
 
 local language_servers = {

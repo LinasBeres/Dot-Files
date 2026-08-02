@@ -1,49 +1,62 @@
 ###################################################
 ################### ALIASES #######################
 ###################################################
+# abbr instead of alias: expands to the real command text on the line before
+# you hit enter, so history shows the actual command, not the shortcut name.
+# Trade-off: abbreviations only expand in the interactive line editor -- they
+# do nothing inside scripts or `fish -c`, unlike alias (a real function).
 
-# Random Aliases for extra stuff
-alias xup="xrdb -load ~/.Xresources"
-alias weather="curl wttr.in"
-
-# Force colours
-alias ls="ls --color=auto"
-alias tree="tree -C"
+abbr -a weather "curl wttr.in"
+abbr -a tree "tree -C"
 
 # ls alias
-alias ls="eza --icons"
-alias ll="eza --icons -lh"
-alias la="eza --icons -alh"
+abbr -a ls "eza --icons"
+abbr -a ll "eza --icons -lh"
+abbr -a la "eza --icons -alh"
 
 # Git shortcuts
-alias gits="git status -s"
-alias gitd="git diff"
-alias gitall="git add -u; git commit -m"
-
-# Keyboard shortcuts
-alias us="setxkbmap us"
-alias uk="setxkbmap gb"
-
-# flatpak
-alias spotify="flatpak run com.spotify.Client"
-alias signal="flatpak run org.signal.Signal"
-alias touche="flatpak run com.github.joseexposito.touche"
-alias steam="flatpak run com.valvesoftware.Steam"
+abbr -a gits "git status -s"
+abbr -a gitd "git diff"
+abbr -a gitall "git add -u; git commit -m"
 
 # Shortcuts
-alias p="ipython3"
-alias f="fzf"
-
-# Update shortcuts
-alias update="sudo dnf upgrade"
+abbr -a p "ipython3"
+abbr -a f "fzf"
 
 # Aliases for rez
-alias re="rez-env"
-alias rb="rez-build -i"
-alias rc="rez context"
+abbr -a re "rez-env"
+abbr -a rb "rez-build -i"
+abbr -a rc "rez context"
 
-# Alias for kitty image view
-alias icat="kitty +kitten icat"
+# Package manager update -- OS-specific
+switch (uname)
+    case Darwin
+        abbr -a update "brew update; and brew upgrade"
+    case Linux
+        abbr -a update "sudo dnf upgrade"
+end
+
+# X11 desktop extras (Linux only -- only defined if the tool is actually there)
+if type -q xrdb
+    abbr -a xup "xrdb -load ~/.Xresources"
+end
+if type -q setxkbmap
+    abbr -a us "setxkbmap us"
+    abbr -a uk "setxkbmap gb"
+end
+
+# Flatpak apps (Linux only)
+if type -q flatpak
+    abbr -a spotify "flatpak run com.spotify.Client"
+    abbr -a signal "flatpak run org.signal.Signal"
+    abbr -a touche "flatpak run com.github.joseexposito.touche"
+    abbr -a steam "flatpak run com.valvesoftware.Steam"
+end
+
+# kitty image viewer -- only defined if kitty is installed
+if type -q kitty
+    abbr -a icat "kitty +kitten icat"
+end
 
 # Handles yazi
 # So that on exit we enter fish shell in that directory

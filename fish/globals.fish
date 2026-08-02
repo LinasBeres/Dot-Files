@@ -19,27 +19,31 @@ if not string match -q -- "$HOME/.fzf/bin" $PATH
     set -gx PATH $PATH "$HOME/.fzf/bin"
 end
 
-if not string match -q -- "$HOME/dev/lua-language-server/bin" $PATH
+if test -d "$HOME/dev/lua-language-server/bin"; and not string match -q -- "$HOME/dev/lua-language-server/bin" $PATH
     set -gx PATH $PATH "$HOME/dev/lua-language-server/bin"
 end
 
-# Editor
-set -Ux VISUAL (which nvim)
-set -Ux EDITOR $VISUAL
+# Editor -- resolved fresh every session (not -U) so it always points at
+# whichever machine's nvim you're actually on, instead of baking in one
+# machine's absolute path.
+if type -q nvim
+    set -gx EDITOR (command -v nvim)
+    set -gx VISUAL $EDITOR
+end
 
-# Icon spacing for exa (ls)
-set -Ux EXA_ICON_SPACING 2
+# Icon spacing for exa/eza (ls)
+set -gx EXA_ICON_SPACING 2
 
 # Force cmake to create compile_commands.json
-set -Ux CMAKE_EXPORT_COMPILE_COMMANDS 1
+set -gx CMAKE_EXPORT_COMPILE_COMMANDS 1
 
-# fzf use rg/ag
+# fzf use rg/ag, recomputed per-session since availability differs by machine
 if type -q rg
-    set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden --smart-case --glob '!.git/*'"
+    set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --smart-case --glob '!.git/*'"
 else if type -q ag
-    set -Ux FZF_DEFAULT_COMMAND ag --files --hidden --smart-case --glob "!.git/*"
+    set -gx FZF_DEFAULT_COMMAND "ag --files --hidden --smart-case --glob '!.git/*'"
 else
-    set -Ux FZF_DEFAULT_COMMAND grep --files --hidden --smart-case --glob "!.git/*"A
+    set -gx FZF_DEFAULT_COMMAND "find . -type f"
 end
 set -gx FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border'
 
@@ -57,5 +61,6 @@ set -g __fish_git_prompt_char_upstream_ahead "↑"
 set -g __fish_git_prompt_char_upstream_behind "↓"
 set -g __fish_git_prompt_char_upstream_diverged "≠"
 
-# For Done
-set -U __done_notification_command 'osascript -e "display notification \"$message\" with title \"$title\""'
+# Done notifications: no manual override -- the done plugin already picks
+# osascript on macOS and notify-send on Linux on its own. A hardcoded
+# osascript command here would silently no-op on Linux.

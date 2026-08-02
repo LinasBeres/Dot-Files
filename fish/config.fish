@@ -32,23 +32,26 @@ end
 
 set fish_color_param 427b58
 
-# Functions for Brightness on all monitors
-function bup
-    set --local currentBrightness (xrandr --verbose | awk '/Brightness/ { print $2; exit }')
-    set --local newBrightness (math $currentBrightness + 0.1)
-    set --local monitors (xrandr | grep " connected " | awk '{ print$1 }')
-    for monitor in $monitors;
-        xrandr --output $monitor --brightness $newBrightness
+# Functions for Brightness on all monitors (X11/Linux only -- xrandr doesn't
+# exist on macOS, so these simply aren't defined there)
+if type -q xrandr
+    function bup
+        set --local currentBrightness (xrandr --verbose | awk '/Brightness/ { print $2; exit }')
+        set --local newBrightness (math $currentBrightness + 0.1)
+        set --local monitors (xrandr | grep " connected " | awk '{ print$1 }')
+        for monitor in $monitors;
+            xrandr --output $monitor --brightness $newBrightness
+        end
     end
-end
 
-function bdown
-  set --local currentBrightness (xrandr --verbose | awk '/Brightness/ { print $2; exit }')
-  set --local newBrightness (math $currentBrightness - 0.1)
-  set --local monitors (xrandr | grep " connected " | awk '{ print$1 }')
-  for monitor in $monitors;
-    xrandr --output $monitor --brightness $newBrightness
-  end
+    function bdown
+        set --local currentBrightness (xrandr --verbose | awk '/Brightness/ { print $2; exit }')
+        set --local newBrightness (math $currentBrightness - 0.1)
+        set --local monitors (xrandr | grep " connected " | awk '{ print$1 }')
+        for monitor in $monitors;
+            xrandr --output $monitor --brightness $newBrightness
+        end
+    end
 end
 
 direnv hook fish | source

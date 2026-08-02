@@ -90,6 +90,26 @@ map("n", "<leader>r", ":Rg<CR>")
 -- Symbol outline (aerial.nvim, LSP-backed)
 map("n", "<leader>v", ":AerialToggle<CR>")
 
+-- Diagnostics list (trouble.nvim), complements the vim.diagnostic mappings
+-- set up in lsp.lua
+map("n", "<leader>x", ":Trouble diagnostics toggle<CR>", { desc = "Toggle diagnostics list" })
+
+-- Flash: labelled jump-to-location motions. Standard flash.nvim bindings --
+-- NOTE: this takes over native s/S (substitute char/line); use "cl"/"cc"
+-- instead, which do the same thing.
+map({ "n", "x", "o" }, "s", function()
+  require("flash").jump()
+end, { desc = "Flash jump" })
+map({ "n", "x", "o" }, "S", function()
+  require("flash").treesitter()
+end, { desc = "Flash treesitter" })
+map("o", "r", function()
+  require("flash").remote()
+end, { desc = "Remote flash" })
+map({ "o", "x" }, "R", function()
+  require("flash").treesitter_search()
+end, { desc = "Treesitter search" })
+
 -- Close buffer without closing the window/split
 map("n", "<leader>d", ":bp<bar>sp<bar>bn<bar>bd<CR>", { silent = true })
 

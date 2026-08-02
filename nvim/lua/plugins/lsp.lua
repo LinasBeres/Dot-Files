@@ -164,6 +164,7 @@ return {
         "stimulus_ls",
         "css_variables",
         "jsonls",
+        "cmake-language-server"
       }
 
       -- This replaces the loop + .setup() calls

@@ -22,6 +22,12 @@ return {
         fg = "#5f0000",
         bg = "#121212",
       })
+      -- Make LSP errors impossible to miss: a solid red background behind
+      -- the offending text, instead of alduin's default (subtler) underline.
+      -- ctermbg (not bg/fg) so this renders without termguicolors.
+      vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", {
+        ctermbg = 1,
+      })
     end,
   },
   {
